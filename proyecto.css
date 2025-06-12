@@ -1,0 +1,228 @@
+/*
+*Selecciona todos los elementos de la página.
+margin:0;Elimina los márgenes por defecto que los navegadores aplican a muchos elementos (como <body>, <h1>, <p>, etc.).
+padding:0;Elimina los rellenos internos por defecto que también aplican algunos elementos.
+box-sizing: border-box;Cambia el modelo de caja para que el ancho y alto de los elementos incluyan el padding y el borde
+*/
+*{ 
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*font-family: 'Segoe UI', sans-serif;Define la tipografía que se usará para el texto de toda la página:
+background-color: #f5f5f5;Cambia el color de fondo del cuerpo de la página a un gris muy claro (#f5f5f5).
+color: #333;Cambia el color del texto a un gris oscuro.
+line-height: 1.6;Aumenta el espaciado vertical entre líneas de texto.
+padding: 20px;Agrega espacio interno de 20 píxeles en todos los bordes del <body>.
+*/
+body{
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #ffffff;
+    color: #232323;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/*
+header{
+background-color: #e0e0e0;Le da un color de fondo gris claro al header.
+padding: 40px 20px;Agrega espacio interno dentro del header para que el contenido no quede pegado a los bordes.
+El valor tiene dos partes:40px (arriba y abajo),20px (izquierda y derecha).
+text-align: center;Centra horizontalmente el texto o contenido dentro del header.
+border-radius: 12px;aplica esquinas redondeadas al header, dándole un diseño más moderno y suave.
+margin-bottom: 30px;Agrega espacio externo hacia abajo del header, separándolo del contenido que viene después.
+*/
+header{
+    background-color: #fdf9b3;
+    padding: 40px 20px;
+    text-align: center;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: #4a4a4a;
+}
+
+header p{
+    font-size: 1.2rem;
+    margin-top: 10px;
+    color: #353535;
+}
+
+nav{
+    margin-top:20px ;
+}
+
+/*
+nav a:Selecciona todos los enlaces (<a>) que estén dentro de una etiqueta <nav> (barra de navegación).
+margin: 0 12px;Aplica margen horizontal de 12 píxeles a cada enlace:0 arriba y abajo.12px a la izquierda y derecha.
+text-decoration: none;Quita el subrayado que tienen los enlaces por defecto.
+color: #5f5f5f;Establece el color del texto del enlace a un gris oscuro.
+font-weight: bold;Pone el texto de los enlaces en negrita, para que se vean más visibles o importantes.
+transition: color 0.3s;Define una transición suave para el cambio de color 
+*/
+nav a {
+    margin: 0 12px;
+    text-decoration: none;
+    color: #000000;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+nav:hover{
+    color: #e88776;
+}
+
+.grid_container{
+    display: grid;
+    grid-template-columns: repeat(2, 2fr);/*2 colum*/
+    grid-template-rows: repeat(3,auto); /*3filas*/
+    gap: 20px;
+    grid-template-areas:
+    "servicios reservar_turno"
+    "servicios presentacion"
+    "contacto testimonios";
+}
+.grid_container #servicios{
+    grid-area: servicios;
+}
+.grid_container #reservar_turno{
+    grid-area: reservar_turno;
+    height: 250px;
+}
+.grid_container #presentacion{
+    grid-area: presentacion;
+}
+.grid_container #testimonios{
+    grid-area: testimonios;
+}
+.grid_container #contacto{
+    grid-area: contacto;
+    
+}
+
+
+section{
+    background-color: #fffeeb;
+    padding: 25px;
+    border-top: 10px solid #becbca;
+    border-bottom: 5px solid #9bc1bc;
+    border-radius: 10px;
+    box-shadow: 0 0.2px 5px rgb(0, 0, 0.15);
+    margin-bottom: 35px;
+}
+
+section h2{
+    color: #575757;
+    margin-bottom: 12px;
+}
+
+h3{
+    color: #626161;
+}
+/*
+a
+Selecciona todos los enlaces (<a>) de la página.
+display: inline-block;Hace que el enlace se comporte como un bloque en línea
+margin-top: 10px;Agrega 10 píxeles de espacio hacia arriba del enlace.
+padding: 10px 16px;Agrega espacio interno:10px arriba y abajo,16px a los costados.
+background-color: #cfcfcf;Le da un color de fondo gris claro al enlace.
+color: #333;Establece el color del texto del enlace en gris oscuro.
+text-decoration: none;Quita el subrayado típico de los enlaces.
+border-radius: 8px;Redondea las esquinas del enlace, dándole forma de botón con bordes suaves.
+font-weight: 500;Le da al texto un grosor medio (más que normal, pero no tan fuerte como "bold").
+transition: background-color 0.3s;Hace que el cambio de color de fondo (por ejemplo, al pasar el mouse) sea suave y dure 0.3 segundos.
+*/
+a{
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 16px;
+    background-color: #e88776;
+    color: #000000;
+    text-decoration: none;
+    border-radius: 8px ;
+    font-weight: 500;
+    transition: background-color 0.3s;
+   
+}
+
+a:hover{
+    background-color: #efa496;
+}
+
+footer{
+    background-color: #faf5a0;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    color: #0a0a0a;
+    font-size: 0.9rem;
+}
+
+/*para reservar turno formulario*/
+
+
+
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    background-color: #fffaf0;
+}
+
+input[type="submit"] {
+    background-color: #e88776;
+    color: #000;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+input[type="submit"]:hover {
+    background-color: #efa496;
+}
+
+/* Estilos para celulares */
+@media screen and (max-width: 768px) {
+    .grid_container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    nav a {
+        display: block;
+        margin: 10px auto;
+        text-align: center;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    header p {
+        font-size: 1rem;
+    }
+
+    section {
+        padding: 20px;
+        margin-bottom: 25px;
+    }
+
+    section h2, section h3 {
+        font-size: 1.3rem;
+    }
+
+    a {
+        width: 100%;
+        text-align: center;
+        margin-top: 10px;
+    }
+}

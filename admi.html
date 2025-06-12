@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel de Administración - Empresa</title>
+  <link rel="stylesheet" href="admi.css">
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2 class="logo">AuraTop</h2>
+      <nav>
+        <ul>
+          <li><a href="#resumen">📊 Resumen</a></li>
+          <li><a href="#empleados">👥 Empleados</a></li>
+          <li><a href="#turnos">🕒 Turnos</a></li>
+          <li><a href="#servicios">💅 Servicios</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Contenido principal -->
+    <main class="main-content">
+      <header class="topbar">
+        <h1>Panel de Administración</h1>
+      </header>
+
+      <section id="resumen">
+        <h2>Resumen General</h2>
+        <div class="dashboard-cards">
+          <div class="card">
+            <h3>Clientes hoy</h3>
+            <p>8</p>
+          </div>
+          <div class="card">
+            <h3>Turnos activos</h3>
+            <p>5</p>
+          </div>
+          <div class="card">
+            <h3>Empleados trabajando</h3>
+            <p>2</p>
+          </div>
+          <div class="card">
+            <h3>Ingresos del día</h3>
+            <p>$25.000</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="empleados">
+        <h2>Empleados</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Turnos asignados</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Lucía</td>
+              <td>4</td>
+              <td>Activo</td>
+            </tr>
+            <tr>
+              <td>Camila</td>
+              <td>3</td>
+              <td>Activo</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="turnos">
+        <h2>Turnos del Día</h2>
+        <ul class="turnos-lista">
+          <li>09:00 - Ana Pérez - Uñas con Lucía</li>
+          <li>10:30 - María Gómez - Cejas con Camila</li>
+          <li>12:00 - Carla Torres - Soft Gel con Lucía</li>
+        </ul>
+      </section>
+
+      <section id="servicios">
+        <h2>Servicios Realizados</h2>
+        <ul class="servicios-lista">
+          <li>Uñas Semipermanentes - Ana Pérez - $3000</li>
+          <li>Cejas HD - María Gómez - $2500</li>
+          <li>Soft Gel - Carla Torres - $3500</li>
+        </ul>
+      </section>
+
+      <footer>
+        <p>&copy; 2025 AuraTop. Todos los derechos reservados.</p>
+      </footer>
+
+    </main>
+
+  </div>
+
+</body>
+</html>

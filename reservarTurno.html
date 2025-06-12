@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservar Turno - Belenza</title>
+    <link rel="stylesheet" href="proyecto.css">
+</head>
+<body>
+    <header>
+        <h1>Belenza</h1>
+        <p>Reservá tu turno con nosotras</p>
+        <nav>
+            <a href="proyecto.html">Inicio</a>
+            <a href="#formulario">Reservar Turnos</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+    </header>
+
+    <div class="grid_container">
+        <section id="formulario">
+            <h2>Formulario de Turno</h2>
+            <form action="#" method="post">
+                <label for="nombre">Nombre:</label><br> 
+                <input type="text" id="nombre" name="nombre" required minlength="3"><br><br>
+
+                <label for="telefono">Numero de telefono:</label><br>
+                <input type="tel" id="telefono" name="telefono" required pattern="[0-9]{10}"><br><br>
+
+                <label for="servicio">Servicio:</label><br>
+                <select id="servicio" name="servicio" required>
+                    <option value="">Seleccioná un servicio</option>
+                    <option value="limpieza">Limpieza</option>
+                    <option value="semipermanente">Semipermanente</option>
+                    <option value="kapping">Kapping</option>
+                    <option value="soft_gel">Soft Gel</option>
+                </select><br><br>
+                <label for="servicio">Servicios Extra:</label><br>
+                <select id="servicioExtra" name="servicioExtra" required>
+                     <option value="">Seleccioná un servicio Extra</option>
+                    <option value="servis">Servis</option>
+                    <option value="diseño">Diseño por uña</option>
+                    <option value="servis">Ninguno</option>
+                </select><br><br>
+
+                <label for="fecha">Fecha:</label><br>
+                <input type="date" id="fecha" name="fecha" required><br><br>
+
+                <label for="hora">Hora:</label><br>
+                <input type="time" id="hora" name="hora" required><br><br>
+
+                <input type="submit" value="Reservar Turno">
+            </form>
+            <p><strong>Seña obligatoria:</strong> $2.000</p>
+            <p><em>La seña no es reembolsable. Se puede cancelar con 24 hs de anticipación.</em></p>
+        </section>
+        <section id="Testimonios">
+            <h2>
+                Testimonios 
+            </h2>
+        
+          <a  href="#">Agregar testimonios</a>
+        </section>
+
+        <section id="contacto">
+            <h2>Contacto</h2>
+            <a href="#">Instagram</a>
+            <a href="#">WhatsApp</a>
+            <a href="#">TikTok</a>
+        </section>
+    </div>
+
+    <footer>
+        <p>© 2025 BELENZA - Todos los derechos reservados</p>
+    </footer>
+    <script>
+
+    </script>
+    <script>
+        //Captura el evento "submit" del formulario 
+        document.querySelector("form").addEventListener("submit", function (e){
+
+            e.preventDefault();//previene el envio
+            //Obtiene los valores ingresados por el usuario 
+            const nombre = document.getElementById("nombre").value.trim();
+            const telefono = document.getElementById("telefono").value.trim()
+            const servicio = document.getElementById("servicio").value
+            const servicioExtra = document.getElementById("servicioExtra").value
+            const fecha = document.getElementById("fecha").value
+            const hora = document.getElementById("hora").value
+
+
+            //Crea un array vacío para guardar los errores
+            let errores = [];
+
+
+            //Validación del nombre
+            if(nombre.length<4){
+                errores.push("El nombre debe tener al menos 4 letras");
+                console.log(errores);
+            }
+            //validar telefono
+            if(!/^\d{10}$/.test(telefono)){
+                errores.push("El numero debe tener 10 digitos ");
+                console.log(errores);
+            }
+            //validar fecha 
+            const hoy = new Date().toISOString().split("T")[0];
+            if(fecha<hoy){
+                errores.push(" La fecha no puede ser anterior a hoy ");
+                console.log(errores);
+            }
+            //validas hora
+            if(!hora){
+                errores.push(" Debe ingresar una hora valida");
+                console.log(errores);
+            }
+            //Mostrar errores o permitir el envío
+            if(errores.length>0){
+                alert(errores.join(","));
+                return;
+                
+            }
+
+            //mensaje personalizado para el usuario:
+            const mensajeUsuario = 
+ `*¡Hola ${nombre}!*
+Gracias por reservar tu turno 💖
+
+*📱 Teléfono:* ${telefono}
+*💅 Servicio:* ${servicio}
+*✨ Servicio Extra:* ${servicioExtra}
+*📆 Fecha:* ${fecha}
+*🕒 Hora:* ${hora}
+
+----------------------------------
+
+Para confirmar tu turno es necesario abonar una *seña OBLIGATORIA de $2.000*.  
+Podés hacerlo por *transferencia o efectivo*.  
+Tu turno queda reservado una vez que envíes el comprobante 📩
+
+¡Gracias por elegirnos! 💖✨
+`;
+            //codificar mensaje para url
+            const mensajeCodificado = encodeURIComponent(mensajeUsuario);
+
+            //numero de la empresa
+            const numeroBelenza = "543515223831";
+            const Url = `https://wa.me/${numeroBelenza}?text=${mensajeCodificado}`;
+
+            //mandarlo a whatsapp
+            window.open(Url, "_blank");
+        })
+    </script>
+</body>
+</html>
