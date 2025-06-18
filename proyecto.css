@@ -186,9 +186,53 @@ input[type="submit"] {
     font-weight: bold;
 }
 
+
+input[type="button"]:hover {
+    background-color: #efa496;
+}
+input[type="button"] {
+    background-color: #e88776;
+    color: #000;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+
 input[type="submit"]:hover {
     background-color: #efa496;
 }
+
+ input, button {
+      display: block;
+      margin-top: 10px;
+      width: 300px;
+      padding: 8px;
+      background-color: #efa496;
+      border: none;
+      border-radius: 6px;
+    }
+     input:hover ,button:hover {
+      background-color: #f39281;
+    }
+
+    ul {
+      margin-top: 20px;
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 10px;
+      background-color: #f9f9f9;
+      border-left: 4px solid #e91e63;
+      padding: 10px;
+      list-style: none;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+
 
 /* Estilos para celulares */
 @media screen and (max-width: 768px) {

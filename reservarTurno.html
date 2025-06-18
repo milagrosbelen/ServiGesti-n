@@ -25,58 +25,67 @@
                 <input type="text" id="nombre" name="nombre" required minlength="3"><br><br>
 
                 <label for="telefono">Numero de telefono:</label><br>
-                <input type="tel" id="telefono" name="telefono" required pattern="[0-9]{10}"><br><br>
+                <input type="tel" id="telefono" name="telefono" required minlength="10" maxlength="10"><br><br>
 
                 <label for="servicio">Servicio:</label><br>
-                <select id="servicio" name="servicio" required>
-                    <option value="">Seleccioná un servicio</option>
-                    <option value="limpieza">Limpieza</option>
-                    <option value="semipermanente">Semipermanente</option>
-                    <option value="kapping">Kapping</option>
-                    <option value="soft_gel">Soft Gel</option>
+                <select id="servicio" name="servicio" >
+                    <option value="SeleccionServis">Selecciona un servicio</option>
+                    <option value="kapping">Kapping $11.500</option>
+                    <option value="soft_gel">Soft Gel $14.000</option>
+                    <option value="semipermanente">Semipermanente $9.000</option>
+                    <option value="limpieza">Limpieza $7.000</option>
+
+                    
+                    
                 </select><br><br>
                 <label for="servicio">Servicios Extra:</label><br>
+
                 <select id="servicioExtra" name="servicioExtra" required>
-                     <option value="">Seleccioná un servicio Extra</option>
-                    <option value="servis">Servis</option>
-                    <option value="diseño">Diseño por uña</option>
+                    <option value="servis">Seleccion un Servicio extra</option>
+                    <option value="servis">Servis $3.000</option>
+                    <option value="diseño">Diseño por uña $600</option>
                     <option value="servis">Ninguno</option>
                 </select><br><br>
 
                 <label for="fecha">Fecha:</label><br>
-                <input type="date" id="fecha" name="fecha" required><br><br>
+                <input type="date" id="fecha" name="fecha" required ><br><br>
+                <small id="fecha-aviso" style="color:red;"></small>
 
-                <label for="hora">Hora:</label><br>
-                <input type="time" id="hora" name="hora" required><br><br>
-
+                <label for="hora">Hora (turno mañana 8 a 11) (turno tarde despues de las 18hs)</label><br>
+                <input type="time" id="hora" name="hora" list="horarios-validos" required><br><br>
+           
                 <input type="submit" value="Reservar Turno">
             </form>
             <p><strong>Seña obligatoria:</strong> $2.000</p>
             <p><em>La seña no es reembolsable. Se puede cancelar con 24 hs de anticipación.</em></p>
         </section>
         <section id="Testimonios">
-            <h2>
-                Testimonios 
-            </h2>
-        
-          <a  href="#">Agregar testimonios</a>
+        <h2>Testimonios</h2>
+        <button id="btnTestimonio">Agregar Testimonio</button>
+        <div id="testimonioContainer" style="display: none; margin-top: 10px;">
+            <textarea id="comentario" rows="4" cols="50" placeholder="Escribí tu testimonio..."></textarea><br>
+            <button id="enviarTestimonio">Enviar</button>
+            <p id="mensajeError" style="color: red;"></p>
+
+            <h3>Lo que dicen nuestras clientas:</h3>
+            <ul id="listaTestimonios" style="list-style-type: disc; padding-left: 20px;"></ul>
+        </div>
         </section>
 
         <section id="contacto">
             <h2>Contacto</h2>
-            <a href="#">Instagram</a>
-            <a href="#">WhatsApp</a>
-            <a href="#">TikTok</a>
+            <a href="https://www.tiktok.com/@belenzaofi">Instagram</a>
+            <a href="https://web.whatsapp.com/">WhatsApp</a>
+            <a href="https://www.instagram.com/belenza.oficial/">TikTok</a>
         </section>
     </div>
 
     <footer>
         <p>© 2025 BELENZA - Todos los derechos reservados</p>
     </footer>
-    <script>
 
-    </script>
     <script>
+        
         //Captura el evento "submit" del formulario 
         document.querySelector("form").addEventListener("submit", function (e){
 
@@ -86,9 +95,9 @@
             const telefono = document.getElementById("telefono").value.trim()
             const servicio = document.getElementById("servicio").value
             const servicioExtra = document.getElementById("servicioExtra").value
-            const fecha = document.getElementById("fecha").value
-            const hora = document.getElementById("hora").value
-
+            const fechaStr = document.getElementById("fecha").value
+            const horaStr = document.getElementById("hora").value
+         
 
             //Crea un array vacío para guardar los errores
             let errores = [];
@@ -106,14 +115,25 @@
             }
             //validar fecha 
             const hoy = new Date().toISOString().split("T")[0];
-            if(fecha<hoy){
+            if(fechaStr<hoy){
                 errores.push(" La fecha no puede ser anterior a hoy ");
                 console.log(errores);
             }
             //validas hora
-            if(!hora){
+            if(!horaStr){
                 errores.push(" Debe ingresar una hora valida");
                 console.log(errores);
+            }
+            //Mostrar disponibilidad horario lun a vir (mañana:9/11) (tarde: 18+)
+            const fecha = new Date(fechaStr);
+            const [hora, minutos] = horaStr.split(":").map(Number);
+            const dia = fecha.getDay();
+            const diaHabil = dia >=1 && dia <= 5 ; //lun a vir
+            const turnoMañana = hora >= 9 && hora < 11;
+            const turnoTarde = hora >= 18;
+
+            if(!diaHabil || (!turnoMañana && !turnoTarde)){
+                errores.push("Solo se atiende de lunes a viernes entre, 9am a 11am y despues de las 18hs")
             }
             //Mostrar errores o permitir el envío
             if(errores.length>0){
@@ -124,23 +144,21 @@
 
             //mensaje personalizado para el usuario:
             const mensajeUsuario = 
- `*¡Hola ${nombre}!*
-Gracias por reservar tu turno 💖
+`*¡Hola! Quiero confirmar mi turno 💅✨*
 
-*📱 Teléfono:* ${telefono}
-*💅 Servicio:* ${servicio}
-*✨ Servicio Extra:* ${servicioExtra}
-*📆 Fecha:* ${fecha}
-*🕒 Hora:* ${hora}
+Mis datos son:
 
-----------------------------------
+*📱 Teléfono:* ${telefono}  
+*🙋‍♀️ Nombre:* ${nombre}  
+*💅 Servicio:* ${servicio}  
+*✨ Servicio Extra:* ${servicioExtra}  
+*📆 Fecha:* ${fecha}  
+*🕒 Hora:* ${hora}  
 
-Para confirmar tu turno es necesario abonar una *seña OBLIGATORIA de $2.000*.  
-Podés hacerlo por *transferencia o efectivo*.  
-Tu turno queda reservado una vez que envíes el comprobante 📩
+Sé que para confirmar mi turno debo abonar una *seña obligatoria de $2.000*.Por favor, pasame los datos para hacer el pago 😊
 
-¡Gracias por elegirnos! 💖✨
-`;
+¡Gracias! 💖`;
+
             //codificar mensaje para url
             const mensajeCodificado = encodeURIComponent(mensajeUsuario);
 
@@ -151,6 +169,57 @@ Tu turno queda reservado una vez que envíes el comprobante 📩
             //mandarlo a whatsapp
             window.open(Url, "_blank");
         })
+
+        
+        document.getElementById("btnTestimonio").addEventListener("click", () => {
+        document.getElementById("testimonioContainer").style.display = "block";
+        });
+
+        document.getElementById("enviarTestimonio").addEventListener("click", () => {
+        const comentario = document.getElementById("comentario").value.trim();
+
+        if (comentario === "") {
+        document.getElementById("mensajeError").textContent = "Por favor escribí un testimonio.";
+        return;
+        }
+
+        document.getElementById("mensajeError").textContent = "";
+
+        const testimonios = JSON.parse(localStorage.getItem("testimonios")) || [];
+        testimonios.push(comentario);
+        localStorage.setItem("testimonios", JSON.stringify(testimonios));
+        document.getElementById("comentario").value = "";
+
+         mostrarTestimonios();
+    });
+
+    function mostrarTestimonios() {
+    const testimonios = JSON.parse(localStorage.getItem("testimonios")) || [];
+    const lista = document.getElementById("listaTestimonios");
+    lista.innerHTML = "";
+
+    testimonios.forEach((comentario, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+        ${comentario}
+        <button onclick="eliminarTestimonio(${index})" style="margin-left:10px">✅❌</button>
+        `;
+        lista.appendChild(li);
+    });
+}
+
+
+    function eliminarTestimonio(index) {
+    const testimonios = JSON.parse(localStorage.getItem("testimonios")) || [];
+    testimonios.splice(index, 1); // Eliminar el testimonio en esa posición
+    localStorage.setItem("testimonios", JSON.stringify(testimonios));
+    mostrarTestimonios(); // Vuelve a mostrar la lista
+}
+
+
+        // Mostrar testimonios al cargar
+        mostrarTestimonios();
+
     </script>
 </body>
 </html>
