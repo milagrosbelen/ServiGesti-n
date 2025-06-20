@@ -22,7 +22,7 @@
             <h2>Formulario de Turno</h2>
             <form action="#" method="post">
                 <label for="nombre">Nombre:</label><br> 
-                <input type="text" id="nombre" name="nombre" required minlength="3"><br><br>
+                <input type="text" id="nombre" name="nombre" required minlength="3" ><br><br>
 
                 <label for="telefono">Numero de telefono:</label><br>
                 <input type="tel" id="telefono" name="telefono" required minlength="10" maxlength="10"><br><br>
@@ -51,7 +51,8 @@
                 <input type="date" id="fecha" name="fecha" required ><br><br>
                 <small id="fecha-aviso" style="color:red;"></small>
 
-                <label for="hora">Hora (turno mañana 8 a 11) (turno tarde despues de las 18hs)</label><br>
+                <label for="hora">Hora disponible: (mañana de 8 A 10) (tarde despues de 18hs)
+                </label><br>
                 <input type="time" id="hora" name="hora" list="horarios-validos" required><br><br>
            
                 <input type="submit" value="Reservar Turno">
@@ -59,18 +60,7 @@
             <p><strong>Seña obligatoria:</strong> $2.000</p>
             <p><em>La seña no es reembolsable. Se puede cancelar con 24 hs de anticipación.</em></p>
         </section>
-        <section id="Testimonios">
-        <h2>Testimonios</h2>
-        <button id="btnTestimonio">Agregar Testimonio</button>
-        <div id="testimonioContainer" style="display: none; margin-top: 10px;">
-            <textarea id="comentario" rows="4" cols="50" placeholder="Escribí tu testimonio..."></textarea><br>
-            <button id="enviarTestimonio">Enviar</button>
-            <p id="mensajeError" style="color: red;"></p>
 
-            <h3>Lo que dicen nuestras clientas:</h3>
-            <ul id="listaTestimonios" style="list-style-type: disc; padding-left: 20px;"></ul>
-        </div>
-        </section>
 
         <section id="contacto">
             <h2>Contacto</h2>
@@ -171,55 +161,7 @@ Sé que para confirmar mi turno debo abonar una *seña obligatoria de $2.000*.Po
         })
 
         
-        document.getElementById("btnTestimonio").addEventListener("click", () => {
-        document.getElementById("testimonioContainer").style.display = "block";
-        });
-
-        document.getElementById("enviarTestimonio").addEventListener("click", () => {
-        const comentario = document.getElementById("comentario").value.trim();
-
-        if (comentario === "") {
-        document.getElementById("mensajeError").textContent = "Por favor escribí un testimonio.";
-        return;
-        }
-
-        document.getElementById("mensajeError").textContent = "";
-
-        const testimonios = JSON.parse(localStorage.getItem("testimonios")) || [];
-        testimonios.push(comentario);
-        localStorage.setItem("testimonios", JSON.stringify(testimonios));
-        document.getElementById("comentario").value = "";
-
-         mostrarTestimonios();
-    });
-
-    function mostrarTestimonios() {
-    const testimonios = JSON.parse(localStorage.getItem("testimonios")) || [];
-    const lista = document.getElementById("listaTestimonios");
-    lista.innerHTML = "";
-
-    testimonios.forEach((comentario, index) => {
-        const li = document.createElement("li");
-        li.innerHTML = `
-        ${comentario}
-        <button onclick="eliminarTestimonio(${index})" style="margin-left:10px">✅❌</button>
-        `;
-        lista.appendChild(li);
-    });
-}
-
-
-    function eliminarTestimonio(index) {
-    const testimonios = JSON.parse(localStorage.getItem("testimonios")) || [];
-    testimonios.splice(index, 1); // Eliminar el testimonio en esa posición
-    localStorage.setItem("testimonios", JSON.stringify(testimonios));
-    mostrarTestimonios(); // Vuelve a mostrar la lista
-}
-
-
-        // Mostrar testimonios al cargar
-        mostrarTestimonios();
-
+       
     </script>
 </body>
 </html>

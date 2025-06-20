@@ -113,6 +113,7 @@ section{
     border-radius: 10px;
     box-shadow: 0 0.2px 5px rgb(0, 0, 0.15);
     margin-bottom: 35px;
+    
 }
 
 section h2{
@@ -162,7 +163,7 @@ footer{
     font-size: 0.9rem;
 }
 
-/*para reservar turno formulario*/
+
 
 
 
@@ -175,63 +176,49 @@ input, select {
     border: 1px solid #ccc;
     border-radius: 6px;
     font-size: 1rem;
-    background-color: #fffaf0;
+    background-color: transparent;
+    border: 1px solid #999;
+    color: #000;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+   
 }
 
 input[type="submit"] {
-    background-color: #e88776;
+ 
     color: #000;
-    border: none;
+    background-color: #e88776;
     cursor: pointer;
     font-weight: bold;
 }
 
 
-input[type="button"]:hover {
-    background-color: #efa496;
-}
+
 input[type="button"] {
-    background-color: #e88776;
+    
     color: #000;
     border: none;
     cursor: pointer;
     font-weight: bold;
+      background-color: #e88776;
 }
 
 
-input[type="submit"]:hover {
-    background-color: #efa496;
-}
 
  input, button {
-      display: block;
       margin-top: 10px;
-      width: 300px;
-      padding: 8px;
-      background-color: #efa496;
-      border: none;
       border-radius: 6px;
-    }
-     input:hover ,button:hover {
-      background-color: #f39281;
-    }
-
-    ul {
-      margin-top: 20px;
-      padding-left: 20px;
+      
+     
     }
 
-    li {
-      margin-bottom: 10px;
-      background-color: #f9f9f9;
-      border-left: 4px solid #e91e63;
-      padding: 10px;
-      list-style: none;
-    }
 
-    h2 {
-      margin-bottom: 10px;
-    }
+input:hover, input:focus {
+  background-color: transparent;
+  outline: none;
+  border-color: #999;
+}
 
 
 /* Estilos para celulares */
@@ -268,5 +255,17 @@ input[type="submit"]:hover {
         width: 100%;
         text-align: center;
         margin-top: 10px;
+    }
+    #formulario {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #formulario form{
+        max-width: 600px;
+        width: 100%;
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 12px;
     }
 }
