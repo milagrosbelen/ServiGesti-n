@@ -39,13 +39,12 @@
                     
                 </select><br><br>
                 <label for="servicio">Servicios Extra:</label><br>
-
                 <select id="servicioExtra" name="servicioExtra" required>
-                    <option value="servis">Seleccion un Servicio extra</option>
+                     <option value="servis">Ninguno</option>
                     <option value="servis">Servis $3.000</option>
                     <option value="servis">Servis $3.000 + diseño por uña $600</option>
                     <option value="diseño">Diseño por uña $600</option>
-                    <option value="servis">Ninguno</option>
+                   
                 </select><br><br>
                   <label for="cantidadDiseno">Cantidad de uñas con diseño (solo si elegiste "Diseño por uña $600"):</label>
                 <select id="cantidadDiseno">
@@ -165,22 +164,24 @@ document.querySelector("form").addEventListener("submit", function (e){
     let precioExtraBase = 0;
     let descripcionExtra = "";
 
-    if (servicioExtra.includes("Servis $3.000 + diseño")) {
+
+    if (servicioExtra === "servis_con_diseño") {
         precioExtraBase = 3000 + (cantidadDiseno * diseñoPorUña);
         descripcionExtra = `Servis + diseño por ${cantidadDiseno} uña(s)`;
-    } else if (servicioExtra === "diseño") {
+    } else if (servicioExtra === "solo_diseño") {
         precioExtraBase = cantidadDiseno * diseñoPorUña;
         descripcionExtra = `Diseño por ${cantidadDiseno} uña(s)`;
-    } else if (servicioExtra === "servis") {
+    } else if (servicioExtra === "solo_servis") {
         precioExtraBase = 3000;
         descripcionExtra = "Servis";
     } else {
         descripcionExtra = "Ninguno";
     }
 
+
+
     const precioServicio = preciosServicios[servicio] || 0;
     const total = precioServicio + precioExtraBase;
-
     const fechaMostrar = fecha.toLocaleDateString('es-AR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
     const mensajeUsuario = 
