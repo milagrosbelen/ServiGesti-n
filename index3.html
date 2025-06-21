@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Administrador de Turnos - Belenza</title>
+  <link rel="stylesheet" href="proyecto.css">
+</head>
+<body>
+  <header>
+    <h1>Panel de historial de turnos</h1>
+    <nav>
+      <a href="index2.html">Volver a Inicio</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Historial de Turnos</h2>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Teléfono</th>
+          <th>Servicio</th>
+          <th>Extra</th>
+          <th>Color</th>
+          <th>Fecha</th>
+          <th>Hora</th>
+          <th>Total</th>
+          <th>Alergia</th>
+          <th>Eliminar</th>
+        </tr>
+      </thead>
+      <tbody id="tabla-turnos"></tbody>
+    </table>
+  </main>
+
+  <script>
+    function cargarTurnos() {
+      const turnos = JSON.parse(localStorage.getItem("turnosBelenza")) || [];
+      const tabla = document.getElementById("tabla-turnos");
+      tabla.innerHTML = ""; // Limpia la tabla antes de cargar nuevos datos
+
+      turnos.forEach((turno, index) => {
+        const fila = document.createElement("tr");
+
+        // Validación para evitar errores con turnos incompletos
+        const totalMostrar = typeof turno.total === "number" 
+          ? `$${turno.total.toLocaleString()}`
+          : "No disponible";
+
+        fila.innerHTML = `
+          <td>${turno.nombre || "Sin nombre"}</td>
+          <td>${turno.telefono || "Sin teléfono"}</td>
+          <td>${turno.servicio || "Sin servicio"}</td>
+          <td>${turno.servicioExtra || "Sin extra"}</td>
+          <td>${turno.color || "No especificado"}</td>
+          <td>${turno.fecha || "Sin fecha"}</td>
+          <td>${turno.hora || "Sin hora"}</td>
+          <td>${totalMostrar}</td>
+          <td>${turno.alergia || "No indicado"}</td>
+          <td><button onclick="eliminarTurno(${index})">❌</button></td>
+        `;
+
+        tabla.appendChild(fila);
+      });
+    }
+
+    function eliminarTurno(index) {
+      const turnos = JSON.parse(localStorage.getItem("turnosBelenza")) || [];
+      if (confirm("¿Seguro que querés eliminar este turno?")) {
+        turnos.splice(index, 1);
+        localStorage.setItem("turnosBelenza", JSON.stringify(turnos));
+        cargarTurnos(); // Recarga la tabla
+      }
+    }
+
+    // Cargar turnos cuando se abra la página
+    window.onload = cargarTurnos;
+  </script>
+</body>
+</html>
