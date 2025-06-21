@@ -51,7 +51,7 @@
                 <input type="date" id="fecha" name="fecha" required ><br><br>
                 <small id="fecha-aviso" style="color:red;"></small>
 
-                <label for="hora">Hora disponible: (mañana de 8 A 10) (tarde despues de 18hs)
+                <label for="hora">Hora disponible: (mañana de 8 A 10)y(tarde despues de 18hs)
                 </label><br>
                 <input type="time" id="hora" name="hora" list="horarios-validos" required><br><br>
            
@@ -148,6 +148,24 @@ Mis datos son:
 Sé que para confirmar mi turno debo abonar una *seña obligatoria de $2.000*.Por favor, pasame los datos para hacer el pago 😊
 
 ¡Gracias! 💖`;
+
+
+
+
+            const nuevoTurno = {
+            nombre,
+            telefono,
+            servicio,
+            servicioExtra,
+            fecha: fechaStr,
+            hora: horaStr,
+            alergia: prompt("¿Sos alérgica a algún producto? Si no, poné 'no'")
+            };
+
+const turnosGuardados = JSON.parse(localStorage.getItem("turnosBelenza")) || [];
+turnosGuardados.push(nuevoTurno);
+localStorage.setItem("turnosBelenza", JSON.stringify(turnosGuardados));
+
 
             //codificar mensaje para url
             const mensajeCodificado = encodeURIComponent(mensajeUsuario);

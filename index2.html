@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="proyecto.css">
+</head>
+<body>
+    <header>
+        <h1>Administrador</h1>
+        <p>Gestion de turno y clientes - BELENZA</p>    
+        <nav>
+            <a href="#historial ">Historial de Turnos</a>
+            <a href="#clientes">Clientes</a>
+        </nav>
+    </header>
+
+    <div class="grid_container">
+        <section id="Historial">
+            <h2>Historial de turno</h2>
+            <div id="listaTurnos">
+                <p>No hay turnos registrados aun.</p>
+            </div>
+        </section>
+
+        <section id="clientes">
+            <h2>Informacion de clientes</h2>
+            <div id="listaClientes">
+                <p>No hay informacion registrada aun.</p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>© 2025 BELENZA - Todos los derechos reservados</p>
+    </footer>
+    <script>
+            // Cargar datos desde localStorage (simulando la base de datos)
+        const Turnos = JSON.parse(localStorage.getItem("turnosBelenza")) || [];
+        const contenedorTurnos = document.getElementById("listaTurnos");
+        const contenedorClientes = document.getElementById("listaClientes");
+
+        if (Turnos.length > 0) {
+            contenedorTurnos.innerHTML = "";
+            contenedorClientes.innerHTML = "";
+
+            Turnos.forEach(turno => {
+                const item = document.createElement("div");
+                item.style.borderBottom = "1px solid #ccc";
+                item.style.marginBottom = "10px";
+                item.innerHTML = `
+                    <strong>Nombre:</strong> ${turno.nombre}<br>
+                    <strong>Teléfono:</strong> ${turno.telefono}<br>
+                    <strong>Servicio:</strong> ${turno.servicio}<br>
+                    <strong>Extra:</strong> ${turno.servicioExtra}<br>
+                    <strong>Fecha:</strong> ${turno.fecha}<br>
+                    <strong>Hora:</strong> ${turno.hora}<br>
+                    <strong>Alergias:</strong> ${turno.alergia || "No informado"}<br>
+                `;
+                contenedorTurnos.appendChild(item);
+
+                const clienteItem = document.createElement("div");
+                clienteItem.style.borderBottom = "1px dashed #aaa";
+                clienteItem.style.marginBottom = "10px";
+                clienteItem.textContent = `${turno.nombre} (${turno.telefono}) - ${turno.servicio} el ${turno.fecha} a las ${turno.hora}`;
+                contenedorClientes.appendChild(clienteItem);
+            });
+        }
+    </script>
+</body>
+
+</html>
