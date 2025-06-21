@@ -96,163 +96,137 @@
 
     <script>
         
-        //Captura el evento "submit" del formulario 
-        document.querySelector("form").addEventListener("submit", function (e){
+//Captura el evento "submit" del formulario 
+document.querySelector("form").addEventListener("submit", function (e){
 
-            e.preventDefault();//previene el envio
-            //Obtiene los valores ingresados por el usuario 
-            const nombre = document.getElementById("nombre").value.trim();
-            const telefono = document.getElementById("telefono").value.trim()
-            const servicio = document.getElementById("servicio").value
-            const servicioExtra = document.getElementById("servicioExtra").value
-            const fechaStr = document.getElementById("fecha").value
-            const horaStr = document.getElementById("hora").value
-         
+    e.preventDefault();
 
-            //Crea un array vacío para guardar los errores
-            let errores = [];
+    const nombre = document.getElementById("nombre").value.trim();
+    const telefono = document.getElementById("telefono").value.trim();
+    const servicio = document.getElementById("servicio").value;
+    const servicioExtra = document.getElementById("servicioExtra").value;
+    const cantidadDiseno = parseInt(document.getElementById("cantidadDiseno").value);
+    const color = document.getElementById("color").value.trim();
+    const fechaStr = document.getElementById("fecha").value;
+    const horaStr = document.getElementById("hora").value;
 
+    let errores = [];
 
-            //Validación del nombre
-            if(nombre.length<4){
-                errores.push("El nombre debe tener al menos 4 letras");
-                console.log(errores);
-            }
-            //validar telefono
-            if(!/^\d{10}$/.test(telefono)){
-                errores.push("El numero debe tener 10 digitos ");
-                console.log(errores);
-            }
-            //validar fecha 
-            const hoy = new Date().toISOString().split("T")[0];
-            if(fechaStr<hoy){
-                errores.push(" La fecha no puede ser anterior a hoy ");
-                console.log(errores);
-            }
-            //validas hora
-            if(!horaStr){
-                errores.push(" Debe ingresar una hora valida");
-                console.log(errores);
-            }
+    if(nombre.length < 4){
+        errores.push("El nombre debe tener al menos 4 letras");
+    }
 
+    if(!/^\d{10}$/.test(telefono)){
+        errores.push("El número debe tener 10 dígitos");
+    }
 
-         
+    const hoy = new Date().toISOString().split("T")[0];
+    if(fechaStr < hoy){
+        errores.push("La fecha no puede ser anterior a hoy");
+    }
 
+    if(!horaStr){
+        errores.push("Debe ingresar una hora válida");
+    }
 
+    const fecha = new Date(fechaStr);
+    const [hora, minutos] = horaStr.split(":").map(Number);
+    const dia = fecha.getDay();
+    const diaHabil = dia >= 1 && dia <= 5;
+    const turnoMañana = hora >= 9 && hora < 11;
+    const turnoTarde = hora >= 18;
 
+    if(!diaHabil || (!turnoMañana && !turnoTarde)){
+        errores.push("Solo se atiende de lunes a viernes entre 9 a 11hs o después de las 18hs");
+    }
 
+    if(servicio === "SeleccionServis"){
+        errores.push("Debe seleccionar un servicio");
+    }
 
+    if((servicioExtra === "diseño" || servicioExtra.includes("diseño")) && cantidadDiseno === 0){
+        errores.push("Debe indicar cuántas uñas con diseño");
+    }
 
+    if(errores.length > 0){
+        alert(errores.join("\n"));
+        return;
+    }
 
+    const preciosServicios = {
+        kapping : 11500,
+        soft_gel : 14000,
+        semipermanente : 9000,
+        limpieza : 7000
+    };
 
+    const diseñoPorUña = 600;
 
+    let precioExtraBase = 0;
+    let descripcionExtra = "";
 
+    if (servicioExtra.includes("Servis $3.000 + diseño")) {
+        precioExtraBase = 3000 + (cantidadDiseno * diseñoPorUña);
+        descripcionExtra = `Servis + diseño por ${cantidadDiseno} uña(s)`;
+    } else if (servicioExtra === "diseño") {
+        precioExtraBase = cantidadDiseno * diseñoPorUña;
+        descripcionExtra = `Diseño por ${cantidadDiseno} uña(s)`;
+    } else if (servicioExtra === "servis") {
+        precioExtraBase = 3000;
+        descripcionExtra = "Servis";
+    } else {
+        descripcionExtra = "Ninguno";
+    }
 
+    const precioServicio = preciosServicios[servicio] || 0;
+    const total = precioServicio + precioExtraBase;
 
+    const fechaMostrar = fecha.toLocaleDateString('es-AR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
-
-
-            //Mostrar disponibilidad horario lun a vir (mañana:9/11) (tarde: 18+)
-            const fecha = new Date(fechaStr);
-            const [hora, minutos] = horaStr.split(":").map(Number);
-            const dia = fecha.getDay();
-            const diaHabil = dia >=1 && dia <= 5 ; //lun a vir
-            const turnoMañana = hora >= 9 && hora < 11;
-            const turnoTarde = hora >= 18;
-
-            if(!diaHabil || (!turnoMañana && !turnoTarde)){
-                errores.push("Solo se atiende de lunes a viernes entre, 9am a 11am y despues de las 18hs")
-            }
-
-
-              // Validar selección de servicio
-            if(servicio === "SeleccionServis"){
-                errores.push("Debe seleccionar un servicio");
-            }
-
-            // Validar cantidad de diseño si es necesario
-            if((servicioExtra === "diseño" || servicioExtra === "servisConDiseno") && cantidadDiseno === 0){
-                errores.push("Debe seleccionar la cantidad de uñas con diseño");
-            }
-
-
-            //Mostrar errores o permitir el envío
-            if(errores.length>0){
-                alert(errores.join(","));
-                return;
-            }
-
-            //precio base
-            const preciosServicios = {
-                kapping : 11500,
-                soft_gel : 14000,
-                semipermanente : 9000,
-                limpieza : 7000
-            };
-
-            const preciosExtra = {
-                ningunguno : 0,
-                servis : 3000,
-                diseño : 0,
-                servisConDiseño: 3000
-            }
-
-            const diseñoPorUña = 600;
-
-            //Calcular precios
-            const precioServicio = preciosServicios[servicio] || 0;
-            const precioExtraBase = preciosExtra[servicioExtra] || 0;
-            const precioExtraDiseño = (servicioExtra === "diseño" || servicioExtra ==="servicioConDiseño") ? diseñoPorUña * cantidadDiseno : 0;
-            const total = precioServicio + precioExtraBase + diseñoPorUña;
-
-            //mensaje personalizado para el usuario:
-            const mensajeUsuario = 
+    const mensajeUsuario = 
 `*¡Hola! Quiero confirmar mi turno 💅✨*
 
-Mis datos son:
+*Mis datos son:*
 
-*📱 Teléfono:* ${telefono}  
-*🙋‍♀️ Nombre:* ${nombre}  
-*💅 Servicio:* ${servicio}  
-*✨ Servicio Extra:* ${servicioExtra}  
-*📆 Fecha:* ${fecha}  
-*🕒 Hora:* ${hora}  
+📱 *Teléfono:* ${telefono}  
+🙋‍♀️ *Nombre:* ${nombre}  
+💅 *Servicio:* ${servicio} - $${precioServicio.toLocaleString()}  
+✨ *Servicio Extra:* ${descripcionExtra} - $${precioExtraBase.toLocaleString()}  
+🎨 *Color:* ${color || "No especificado"}  
+📆 *Fecha:* ${fechaMostrar}  
+🕒 *Hora:* ${horaStr}  
 
-Sé que para confirmar mi turno debo abonar una *seña obligatoria de $2.000*.Por favor, pasame los datos para hacer el pago 😊
+💵 *Total a abonar el día del turno:* $${total.toLocaleString()}  
+🔐 *Seña obligatoria para confirmar turno:* $2.000  
 
-¡Gracias! 💖`;
+*Datos para enviar la seña:*  
+🏦 Alias: *belenza.señas.mp*  
+📲 Enviame el comprobante por acá para dejar confirmado tu turno 🤍  
 
+¡Gracias por elegirnos! 💖`;
 
+    const nuevoTurno = {
+        nombre,
+        telefono,
+        servicio,
+        servicioExtra,
+        color,
+        fecha: fechaStr,
+        hora: horaStr,
+        total,
+        alergia: prompt("¿Sos alérgica a algún producto? Si no, poné 'no'")
+    };
 
+    const turnosGuardados = JSON.parse(localStorage.getItem("turnosBelenza")) || [];
+    turnosGuardados.push(nuevoTurno);
+    localStorage.setItem("turnosBelenza", JSON.stringify(turnosGuardados));
 
-            const nuevoTurno = {
-            nombre,
-            telefono,
-            servicio,
-            servicioExtra,
-            fecha: fechaStr,
-            hora: horaStr,
-            alergia: prompt("¿Sos alérgica a algún producto? Si no, poné 'no'")
-            };
+    const mensajeCodificado = encodeURIComponent(mensajeUsuario);
+    const numeroBelenza = "543515223831";
+    const Url = `https://wa.me/${numeroBelenza}?text=${mensajeCodificado}`;
 
-            const turnosGuardados = JSON.parse(localStorage.getItem("turnosBelenza")) || [];
-            turnosGuardados.push(nuevoTurno);
-            localStorage.setItem("turnosBelenza", JSON.stringify(turnosGuardados));
-
-
-            //codificar mensaje para url
-            const mensajeCodificado = encodeURIComponent(mensajeUsuario);
-
-            //numero de la empresa
-            const numeroBelenza = "543515223831";
-            const Url = `https://wa.me/${numeroBelenza}?text=${mensajeCodificado}`;
-
-            //mandarlo a whatsapp
-            window.open(Url, "_blank");
-        })
-
-        
-       
+    window.open(Url, "_blank");
+});
     </script>
 </body>
 </html>
