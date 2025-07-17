@@ -1,115 +1,282 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Belenza</title>
-    <link rel="stylesheet" href="proyecto.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Belenza</title>
+  <link rel="stylesheet" href="proyecto.css" />
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .grid_container {
+      padding: 20px;
+    }
+
+    #servicios h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .servicios-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 10px;
+    }
+
+    .servicio-card {
+      background: #f9f9f9;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .servicio-card:hover {
+      transform: scale(1.05);
+    }
+
+    .servicio-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .servicio-card h3 {
+      margin: 10px 0;
+      font-size: 1.1rem;
+    }
+
+    /* MODAL */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      position: relative;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 28px;
+      cursor: pointer;
+      color: #333;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>
-            Belenza
-        </h1>
-   
-        <p>
-            Servicios profesionales para avos
-        </p>
-    <nav>
-        <a href="#servicios">Servicios</a>
-        <a href="reservarTurno.html">Reservar Turnos</a>
-        <a href="#contacto">Contacto</a>
-    </nav>
-    </header>
+
+<header>
+  <h1>
+    <img src="img/img.jpg" alt="logo" class="logo-neon" width="20%" />
+  </h1>
+  <nav>
+    <a href="#servicios">Servicios</a>
+    <a href="reservarTurno.html">Reservar Turnos</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+</header>
+
 <div class="grid_container">
-    <section id="servicios">
-        <h2>
-            Servicios
-        </h2>
-        <div>
-            <h3>
-                Limpieza:
-            </h3>
-            <p>
-                Duracion: 40min Precio: $7.000
-            </p>
-        </div>
-        <div>
-            <h3>
-                Semipermanente:
-            </h3>
-            <p>
-                Duracion: 1 hora y 20min Precio: $9.000
-            </p>
-        </div>
-        <div>
-            <h3>
-                Kapping:
-            </h3>
-            <p>
-                Duracion: 1 hora y 30min Precio: $11.500
-            </p>
-        </div>
-        <div>
-            <h3>
-                Soft gel:
-            </h3>
-            <p>
-                Duracion: 1 hora y 40min Precio: $14.000
-            </p>
-        </div>
-        <div>
-            <h3>
-                Servis:
-            </h3>
-            <p>
-                Duracion: 40min  Precio: $3.000
-            </p>
-        </div>
-        <div>
-            <h3>Diseño por uña:</h3><p>Duracion: 15min aprox. Precio: $600</p>
-        </div>
-    </section>
+  <section id="servicios">
+    <h2>Servicios</h2>
+    <div class="servicios-grid">
 
+      <!-- Tarjetas con onclick -->
+      <div class="servicio-card" onclick="mostrarModal('servis')">
+        <img src="img/servis.jpg" alt="Servis">
+        <h3>Servis</h3>
+      </div>
 
-    <section id="reservar_turno">
-        <h2>
-            Turnos
-        </h2>
-        <p>
-            Seña Obligatoria: $2.000
-        </p>
-        <a href="reservarTurno.html">Reservar turno</a>
-        
-        <p>
-            Politica: Seña no reembolsable, 24hs para cancelacion
-        </p>
-    </section>
+      <div class="servicio-card" onclick="mostrarModal('limpieza')">
+        <img src="img/limpieza.jpg" alt="Limpieza">
+        <h3>Limpieza</h3>
+      </div>
 
-    <section id="presentacion">
-        <h2>
-            ¿Quienes somos?
-        </h2>
-        <p>
-            
-            ¡Hola! Soy Milagros, técnica en uñas apasionada por el detalle y el cuidado de cada clienta.
-            Mi objetivo es que te sientas cómoda, mimada y feliz con tus manos. Trabajo con productos de calidad y técnicas actualizadas para ofrecerte un servicio personalizado, prolijo y duradero.
-            ¡Gracias por confiar en mí!
-        </p>
-    </section>
-    <section id="contacto">
-        <h2>
-            Contacto
-        </h2>
-        <a href="https://www.instagram.com/belenza.oficial/">Instagram</a>
-        <a href="https://web.whatsapp.com/">WhatsApp</a>
-        <a href="https://www.tiktok.com/@belenzaofi">Tiktok</a>
-    </section>
-</div>   
-    <footer>
-        <p>
-            © 2025 BELENZA - Todos los derechos reservados
-        </p>
-    </footer>
+      <div class="servicio-card" onclick="mostrarModal('semis')">
+        <img src="img/semis_cortas_diseño.jpg" alt="Semis">
+        <h3>Semipermanente</h3>
+      </div>
+
+      <div class="servicio-card" onclick="mostrarModal('kapping_liso')">
+        <img src="img/kapping_liso_largas.jpg" alt="Kapping liso">
+        <h3>Kapping liso</h3>
+      </div>
+
+      <div class="servicio-card" onclick="mostrarModal('kapping_diseño')">
+        <img src="img/kapping_diseño_largas.jpg" alt="Kapping diseño">
+        <h3>Kapping diseño</h3>
+      </div>
+
+      <div class="servicio-card" onclick="mostrarModal('softgel_liso')">
+        <img src="img/softgel_liso_largas.jpg" alt="Soft Gel liso">
+        <h3>Soft Gel liso</h3>
+      </div>
+
+      <div class="servicio-card" onclick="mostrarModal('softgel_diseño')">
+        <img src="img/softgel_largas_diseño.jpg" alt="Soft Gel diseño">
+        <h3>Soft Gel diseño</h3>
+      </div>
+
+      <div class="servicio-card" onclick="mostrarModal('diseño')">
+        <img src="img/kappingcortas_diseño.jpg" alt="Diseño por uña">
+        <h3>Diseño por uña</h3>
+      </div>
+
+      <div class="servicio-card" onclick="mostrarModal('combo')">
+        <img src="img/kapping_mas_softgel.jpg" alt="Kapping + Soft Gel">
+        <h3>Kapping + Soft Gel</h3>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MODAL -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarModal()">&times;</span>
+      <h3 id="modal-titulo"></h3>
+      <p id="modal-precio"></p>
+      <p id="modal-duracion"></p>
+      <p id="modal-descripcion"></p>
+    </div>
+  </div>
+
+  <!-- Otras secciones -->
+  <section id="reservar_turno">
+    <h2>Turnos</h2>
+    <p>Seña Obligatoria: $2.000</p>
+    <a href="reservarTurno.html">Reservar turno</a>
+    <p>Política: Seña no reembolsable, 24hs para cancelación</p>
+  </section>
+
+  <section id="presentacion">
+    <h2>¿Quiénes somos?</h2>
+    <p>
+      ¡Hola! Soy Milagros, técnica en uñas apasionada por el detalle y el cuidado de cada clienta.
+      Mi objetivo es que te sientas cómoda, mimada y feliz con tus manos.
+      ¡Gracias por confiar en mí!
+    </p>
+  </section>
+
+  <section id="contacto">
+    <h2>Contacto</h2>
+    <a href="https://www.instagram.com/belenza.oficial/">Instagram</a><br>
+    <a href="https://web.whatsapp.com/">WhatsApp</a><br>
+    <a href="https://www.tiktok.com/@belenzaofi">Tiktok</a>
+  </section>
+</div>
+
+<footer>
+  <p>© 2025 BELENZA - Todos los derechos reservados</p>
+</footer>
+
+<script>
+  const servicios = {
+    servis: {
+      titulo: "Servis",
+      precio: "Precio uñas cortas: $4.000",
+      duracion: "Duración: 40 min",
+      descripcion: "Reparación rápida para mantener tu esmaltado impecable entre sesiones. Ideal para retoques."
+    },
+    limpieza: {
+      titulo: "Limpieza",
+      precio: "Precio: $7.000",
+      duracion: "Duración: 40 min",
+      descripcion: "Incluye corte, limado, empuje de cutículas y fortalecedor. Ideal para mantener las uñas sanas y prolijas."
+    },
+    semis: {
+      titulo: "Semipermanente liso/diseño",
+      precio: "Precio: $9.000",
+      duracion: "Duración: 1h 20min",
+      descripcion: "Color brillante que dura hasta 3 semanas. Perfecto para quienes quieren practicidad y elegancia."
+    },
+    kapping_liso: {
+      titulo: "Kapping liso",
+      precio: "Cortas: $12.000 · Largas: $13.500",
+      duracion: "Duración: 1h 30min",
+      descripcion: "Refuerzo con base de gel que fortalece tus uñas naturales sin alargarlas. ¡Prolijidad y resistencia!"
+    },
+    kapping_diseño: {
+      titulo: "Kapping con diseño",
+      precio: "Cortas: $13.500 · Largas: $14.500",
+      duracion: "Duración: 1h 50min",
+      descripcion: "Refuerzo de gel con diseños personalizados. Prolijidad, resistencia y creatividad."
+    },
+    softgel_liso: {
+      titulo: "Soft Gel liso",
+      precio: "Cortas: $15.000 · Largas: $16.500",
+      duracion: "Duración: 1h 40min",
+      descripcion: "Extensiones flexibles y livianas. Cómodas para el día a día, con un acabado natural."
+    },
+    softgel_diseño: {
+      titulo: "Soft Gel con diseño",
+      precio: "Cortas: $16.500 · Largas: $17.500",
+      duracion: "Duración: 1h 40min",
+      descripcion: "Extensiones flexibles con diseño incluido. Livianas, elegantes y a tu gusto."
+    },
+    diseño: {
+      titulo: "Diseño por uña",
+      precio: "$1.000 por uña",
+      duracion: "Duración: 20 min (aprox)",
+      descripcion: "Diseños personalizados a tu estilo. Desde lo minimalista hasta lo artístico."
+    },
+    combo: {
+      titulo: "Kapping + Soft Gel",
+      precio: "Precio: $14.500",
+      duracion: "Duración: 2h",
+      descripcion: "Combinación perfecta para uñas fuertes, largas y con excelente terminación."
+    }
+  };
+
+  function mostrarModal(id) {
+    const data = servicios[id];
+    document.getElementById("modal-titulo").innerText = data.titulo;
+    document.getElementById("modal-precio").innerText = data.precio;
+    document.getElementById("modal-duracion").innerText = data.duracion;
+    document.getElementById("modal-descripcion").innerText = data.descripcion;
+    document.getElementById("modal").style.display = "block";
+  }
+
+  function cerrarModal() {
+    document.getElementById("modal").style.display = "none";
+  }
+
+  window.onclick = function (e) {
+    const modal = document.getElementById("modal");
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  };
+</script>
+
 </body>
 </html>
