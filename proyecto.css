@@ -1,270 +1,217 @@
-/*
-*Selecciona todos los elementos de la página.
-margin:0;Elimina los márgenes por defecto que los navegadores aplican a muchos elementos (como <body>, <h1>, <p>, etc.).
-padding:0;Elimina los rellenos internos por defecto que también aplican algunos elementos.
-box-sizing: border-box;Cambia el modelo de caja para que el ancho y alto de los elementos incluyan el padding y el borde
-*/
-*{ 
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* Reset general */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-/*font-family: 'Segoe UI', sans-serif;Define la tipografía que se usará para el texto de toda la página:
-background-color: #f5f5f5;Cambia el color de fondo del cuerpo de la página a un gris muy claro (#f5f5f5).
-color: #333;Cambia el color del texto a un gris oscuro.
-line-height: 1.6;Aumenta el espaciado vertical entre líneas de texto.
-padding: 20px;Agrega espacio interno de 20 píxeles en todos los bordes del <body>.
-*/
-body{
+body {
+  font-family: sans-serif;
+  line-height: 1.6;
+     background-color: #000000;
+    color: #f5f5f5;
     font-family: 'Segoe UI', sans-serif;
-    background-color: #ffffff;
-    color: #232323;
-    line-height: 1.6;
     padding: 20px;
 }
 
-/*
-header{
-background-color: #e0e0e0;Le da un color de fondo gris claro al header.
-padding: 40px 20px;Agrega espacio interno dentro del header para que el contenido no quede pegado a los bordes.
-El valor tiene dos partes:40px (arriba y abajo),20px (izquierda y derecha).
-text-align: center;Centra horizontalmente el texto o contenido dentro del header.
-border-radius: 12px;aplica esquinas redondeadas al header, dándole un diseño más moderno y suave.
-margin-bottom: 30px;Agrega espacio externo hacia abajo del header, separándolo del contenido que viene después.
-*/
-header{
-    background-color: #fdf9b3;
-    padding: 40px 20px;
+/* HEADER */
+header {
+    background-color: #111;
+    padding: 30px 20px;
     text-align: center;
     border-radius: 12px;
     margin-bottom: 30px;
-    
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
 }
 
-header h1 {
-    font-size: 2.5rem;
-    color: #4a4a4a;
+nav   {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
 }
-
-header p{
-    font-size: 1.2rem;
-    margin-top: 10px;
-    color: #353535;
-}
-
-nav{
-    margin-top:20px ;
-}
-
-/*
-nav a:Selecciona todos los enlaces (<a>) que estén dentro de una etiqueta <nav> (barra de navegación).
-margin: 0 12px;Aplica margen horizontal de 12 píxeles a cada enlace:0 arriba y abajo.12px a la izquierda y derecha.
-text-decoration: none;Quita el subrayado que tienen los enlaces por defecto.
-color: #5f5f5f;Establece el color del texto del enlace a un gris oscuro.
-font-weight: bold;Pone el texto de los enlaces en negrita, para que se vean más visibles o importantes.
-transition: color 0.3s;Define una transición suave para el cambio de color 
-*/
 nav a {
+    color: #ffffff;
     margin: 0 12px;
-    text-decoration: none;
-    color: #000000;
     font-weight: bold;
+    text-decoration: none;
     transition: color 0.3s;
 }
-nav:hover{
+
+nav a:hover {
     color: #e88776;
 }
 
-.grid_container{
-    display: grid;
-    grid-template-columns: repeat(2, 2fr);/*2 colum*/
-    grid-template-rows: repeat(3,auto); /*3filas*/
-    gap: 20px;
-    grid-template-areas:
-    "servicios reservar_turno"
-    "servicios presentacion"
-    "contacto testimonios";
-}
-.grid_container #servicios{
-    grid-area: servicios;
-}
-.grid_container #reservar_turno{
-    grid-area: reservar_turno;
-    height: 250px;
-}
-.grid_container #presentacion{
-    grid-area: presentacion;
-}
-.grid_container #testimonios{
-    grid-area: testimonios;
-}
-.grid_container #contacto{
-    grid-area: contacto;
-    
+.logo-neon {
+    filter: drop-shadow(0 0 5px #e88776)
+            drop-shadow(0 0 10px #e88776)
+            drop-shadow(0 0 20px #e88776);
 }
 
 
-section{
-    background-color: #fffeeb;
-    padding: 25px;
-    border-top: 10px solid #becbca;
-    border-bottom: 5px solid #9bc1bc;
-    border-radius: 10px;
-    box-shadow: 0 0.2px 5px rgb(0, 0, 0.15);
-    margin-bottom: 35px;
-    
+.grid_container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
 }
 
-section h2{
-    color: #575757;
-    margin-bottom: 12px;
+
+/* SECCIONES */
+section {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+    padding: 50px 30px;
+    border-top: 5px solid #e88776;
+    border-bottom: 2px solid #e88776;
+    border-radius: 12px;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.05);
+    margin-bottom: 50px;
 }
 
-h3{
-    color: #626161;
+section h2 {
+    color: #e88776;
 }
-/*
-a
-Selecciona todos los enlaces (<a>) de la página.
-display: inline-block;Hace que el enlace se comporte como un bloque en línea
-margin-top: 10px;Agrega 10 píxeles de espacio hacia arriba del enlace.
-padding: 10px 16px;Agrega espacio interno:10px arriba y abajo,16px a los costados.
-background-color: #cfcfcf;Le da un color de fondo gris claro al enlace.
-color: #333;Establece el color del texto del enlace en gris oscuro.
-text-decoration: none;Quita el subrayado típico de los enlaces.
-border-radius: 8px;Redondea las esquinas del enlace, dándole forma de botón con bordes suaves.
-font-weight: 500;Le da al texto un grosor medio (más que normal, pero no tan fuerte como "bold").
-transition: background-color 0.3s;Hace que el cambio de color de fondo (por ejemplo, al pasar el mouse) sea suave y dure 0.3 segundos.
-*/
-a{
-    display: inline-block;
-    margin-top: 10px;
-    padding: 10px 16px;
+
+
+
+/* ---------- SERVICIOS ---------- */
+
+#servicios h2 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 30px;
+  color: #fdfdfd;
+}
+
+/* GRID de tarjetas de servicios */
+.servicios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+/* Tarjeta individual */
+.servicio-card {
+  background-color: #1a1a1a;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.servicio-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 16px #e88776;
+}
+
+/* Imagen del servicio */
+.servicio-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: contain;
+  border-radius: 8px;
+  background-color: #0e0e0e;
+}
+
+/* Título */
+.servicio-card h3 {
+  margin-top: 12px;
+  font-size: 18px;
+  color: #e0e0e0;
+}
+
+/* BOTONES Y LINKS */
+a, input[type="submit"], input[type="button"], .sidebar button {
     background-color: #e88776;
-    color: #000000;
+    color: #000;
+    padding: 8px 14px;
+    font-size: 12px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
     text-decoration: none;
-    border-radius: 8px ;
-    font-weight: 500;
-    transition: background-color 0.3s;
-   
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-a:hover{
+a:hover, input[type="submit"]:hover, input[type="button"]:hover, .sidebar button:hover {
     background-color: #efa496;
+      transform: scale(1.03);
 }
 
-footer{
-    background-color: #faf5a0;
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+    background-color: #1f1f1f;
+    color: #f0f0f0;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 0 15px #e88776;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #f0f0f0;
+}
+
+/* FOOTER */
+footer {
+    background-color: #111;
     text-align: center;
     padding: 20px;
     border-radius: 10px;
-    color: #0a0a0a;
+    color: #ccc;
     font-size: 0.9rem;
 }
 
 
 
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  .servicio-card img {
+    height: 180px;
+  }
 
+  .servicio-card h3 {
+    font-size: 16px;
+  }
 
+  #servicios h2 {
+    font-size: 24px;
+  }
+}
 
-input, select {
-    width: 100%;
+@media (max-width: 480px) {
+  .grid_container {
     padding: 10px;
-    margin-top: 5px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 1rem;
-    background-color: transparent;
-    border: 1px solid #999;
-    color: #000;
-    justify-content: center;
-    align-content: center;
-    text-align: center;
-   
-}
+  }
 
-input[type="submit"] {
- 
-    color: #000;
-    background-color: #e88776;
-    cursor: pointer;
-    font-weight: bold;
-}
+  .servicios-grid {
+    grid-template-columns: 1fr;
+  }
 
-
-
-input[type="button"] {
-    
-    color: #000;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-      background-color: #e88776;
-}
-
-
-
- input, button {
-      margin-top: 10px;
-      border-radius: 6px;
-      
-     
-    }
-
-
-input:hover, input:focus {
-  background-color: transparent;
-  outline: none;
-  border-color: #999;
-}
-
-
-/* Estilos para celulares */
-@media screen and (max-width: 768px) {
-    .grid_container {
-        display: flex;
-        flex-direction: column;
-    }
-
-    nav a {
-        display: block;
-        margin: 10px auto;
-        text-align: center;
-    }
-
-    header h1 {
-        font-size: 2rem;
-    }
-
-    header p {
-        font-size: 1rem;
-    }
-
-    section {
-        padding: 20px;
-        margin-bottom: 25px;
-    }
-
-    section h2, section h3 {
-        font-size: 1.3rem;
-    }
-
-    a {
-        width: 100%;
-        text-align: center;
-        margin-top: 10px;
-    }
-    #formulario {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    #formulario form{
-        max-width: 700px;
-        width: 100%;
-        padding: 30px;
-        border-radius: 12px;
-    }
+  .servicio-card img {
+    height: 160px;
+  }
 }

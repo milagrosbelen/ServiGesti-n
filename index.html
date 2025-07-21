@@ -5,98 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Belenza</title>
   <link rel="stylesheet" href="proyecto.css" />
-  <style>
-    body {
-      font-family: sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-
-    .grid_container {
-      padding: 20px;
-    }
-
-    #servicios h2 {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .servicios-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      padding: 10px;
-    }
-
-    .servicio-card {
-      background: #f9f9f9;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      cursor: pointer;
-      transition: transform 0.3s;
-    }
-
-    .servicio-card:hover {
-      transform: scale(1.05);
-    }
-
-    .servicio-card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-    }
-
-    .servicio-card h3 {
-      margin: 10px 0;
-      font-size: 1.1rem;
-    }
-
-    /* MODAL */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100vw;
-      height: 100vh;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.6);
-    }
-
-    .modal-content {
-      background-color: #fff;
-      margin: 10% auto;
-      padding: 20px;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 500px;
-      position: relative;
-      animation: fadeIn 0.3s ease-in-out;
-    }
-
-    .close {
-      position: absolute;
-      top: 10px;
-      right: 20px;
-      font-size: 28px;
-      cursor: pointer;
-      color: #333;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
-    }
-  </style>
 </head>
 <body>
 
 <header>
   <h1>
-    <img src="img/img.jpg" alt="logo" class="logo-neon" width="20%" />
+    <img src="img/img-removebg-preview.png" alt="logo" class="logo-neon" width="20%" />
   </h1>
   <nav>
     <a href="#servicios">Servicios</a>
@@ -203,7 +117,7 @@
   const servicios = {
     servis: {
       titulo: "Servis",
-      precio: "Precio uñas cortas: $4.000",
+      precio: "Precio uñas cortas: $3.800",
       duracion: "Duración: 40 min",
       descripcion: "Reparación rápida para mantener tu esmaltado impecable entre sesiones. Ideal para retoques."
     },
@@ -214,32 +128,32 @@
       descripcion: "Incluye corte, limado, empuje de cutículas y fortalecedor. Ideal para mantener las uñas sanas y prolijas."
     },
     semis: {
-      titulo: "Semipermanente liso/diseño",
+      titulo: "Semipermanente",
       precio: "Precio: $9.000",
-      duracion: "Duración: 1h 20min",
+      duracion: "Duración: 1h 10min",
       descripcion: "Color brillante que dura hasta 3 semanas. Perfecto para quienes quieren practicidad y elegancia."
     },
     kapping_liso: {
       titulo: "Kapping liso",
-      precio: "Cortas: $12.000 · Largas: $13.500",
+      precio: "Uñas Cortas: $12.000 · Uñas Largas: $13.500",
       duracion: "Duración: 1h 30min",
       descripcion: "Refuerzo con base de gel que fortalece tus uñas naturales sin alargarlas. ¡Prolijidad y resistencia!"
     },
     kapping_diseño: {
       titulo: "Kapping con diseño",
-      precio: "Cortas: $13.500 · Largas: $14.500",
-      duracion: "Duración: 1h 50min",
+      precio: "Uñas Cortas: $13.500 · Uñas Largas: $14.500",
+      duracion: "Duración: 1h 30min",
       descripcion: "Refuerzo de gel con diseños personalizados. Prolijidad, resistencia y creatividad."
     },
     softgel_liso: {
       titulo: "Soft Gel liso",
-      precio: "Cortas: $15.000 · Largas: $16.500",
-      duracion: "Duración: 1h 40min",
+      precio: "Soft Cortas: $15.000 · Soft Largas: $16.500",
+      duracion: "Duración: 1h 30min",
       descripcion: "Extensiones flexibles y livianas. Cómodas para el día a día, con un acabado natural."
     },
     softgel_diseño: {
       titulo: "Soft Gel con diseño",
-      precio: "Cortas: $16.500 · Largas: $17.500",
+      precio: "Soft Cortas: $16.500 · Soft Largas: $17.500",
       duracion: "Duración: 1h 40min",
       descripcion: "Extensiones flexibles con diseño incluido. Livianas, elegantes y a tu gusto."
     },
@@ -247,12 +161,12 @@
       titulo: "Diseño por uña",
       precio: "$1.000 por uña",
       duracion: "Duración: 20 min (aprox)",
-      descripcion: "Diseños personalizados a tu estilo. Desde lo minimalista hasta lo artístico."
+      descripcion: "Diseños personalizados a tu estilo."
     },
     combo: {
       titulo: "Kapping + Soft Gel",
-      precio: "Precio: $14.500",
-      duracion: "Duración: 2h",
+      precio: "Precio: $14.800",
+      duracion: "Duración: 1h 30min",
       descripcion: "Combinación perfecta para uñas fuertes, largas y con excelente terminación."
     }
   };
