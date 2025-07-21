@@ -241,6 +241,13 @@ form button:hover {
   background-color: #ef9e8a;
 }
 
+.aclaracion-servicios {
+  text-align: center;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  color: #888; /* podés cambiar el color según tu estética */
+  font-style: italic;
+}
 
 
 /* ---------- Responsive ---------- */
@@ -276,5 +283,13 @@ form button:hover {
 
   form {
     width: 100%;
+  
+    nav {
+    flex-wrap: nowrap;
+    overflow-x: auto; /* Para que pueda hacer scroll horizontal si no entran */
   }
+
+  nav a {
+    white-space: nowrap; /* Para evitar que el texto de los links se parta */
+  }}
 }
