@@ -241,6 +241,28 @@ form button:hover {
   background-color: #ef9e8a;
 }
 
+select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  background-color: #fefefe;
+  color: #333;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+select:focus {
+  border-color: #b87fd0;
+  outline: none;
+  box-shadow: 0 0 5px rgba(184, 127, 208, 0.5);
+}
+
+
+
+
 .aclaracion-servicios {
   text-align: center;
   font-size: 1rem;

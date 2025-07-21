@@ -22,7 +22,7 @@
     <div class="grid_container">
         <section id="formulario">
             <h2>Formulario de Turno</h2>
-            <form action="/guardar-turno" method="post">
+            <form id="reservaForm" method="post">
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" required minlength="3" >
 
@@ -31,13 +31,13 @@
 
                 <label for="servicio">Servicio:</label>
                 <select id="servicio" name="servicio" >
-                    <option value="SeleccionServis">Selecciona un servicio</option>
-                    <option value="kapping">Kapping liso $12.000</option>
-                    <option value="kapping">Kapping con diseño  $13.500</option>
-                    <option value="soft_gel">Soft Gel liso $15.000</option>
-                    <option value="soft_gel">Soft Gel con diseño $16.500</option>
-                    <option value="semipermanente">Semipermanente $9.000</option>
-                    <option value="limpieza">Limpieza $7.700</option>
+                    <option value="SeleccionServis" data-precio="12000" >Selecciona un servicio</option>
+                    <option value="kapping" data-precio="12000" >Kapping liso $12.000</option>
+                    <option value="kapping" data-precio="13500" >Kapping con diseño  $13.500</option>
+                    <option value="soft_gel" data-precio="15000">Soft Gel liso $15.000</option>
+                    <option value="soft_gel" data-precio="16500" >Soft Gel con diseño $16.500</option>
+                    <option value="semipermanente" data-precio="9000" >Semipermanente $9.000</option>
+                    <option value="limpieza" data-precio="7700" >Limpieza $7.700</option>
 
                     
                     
@@ -45,12 +45,12 @@
                 <label for="servicio">Servicios Extra:</label>
                 <select id="servicioExtra" name="servicioExtra" required>
                     <option value="Ninguno">Ninguno</option>
-                    <option value="Servis">servis $3.800</option>
-                    <option value="servis_con_diseño">Servis $3.800 + diseño por uña $1000</option>
-                    <option value="diseño">Diseño por uña $1000</option>
+                    <option value="Servis" data-precio="3800" >servis $3.800</option>
+                    <option value="servis_con_diseño" data-precio="3800" data-precio="1000" >Servis $3.800 + diseño por uña $1000</option>
+                    <option value="diseño" data-precio="1000" >Diseño por uña $1000</option>
                    
                 </select>
-                  <label for="cantidadDiseno">Cantidad de uñas con diseño (solo si elegiste "Diseño por uña $600"):</label>
+                  <label for="cantidadDiseno">Cantidad de uñas con diseño (solo si elegiste "Diseño por uña $1000"):</label>
                 <select id="cantidadDiseno">
                     <option value="0" selected>0</option>
                     <option value="1">1 uña</option>
@@ -72,9 +72,22 @@
                 <input type="date" id="fecha" name="fecha" required >
                 <small id="fecha-aviso" style="color:red;"></small>
 
-                <label for="hora">Hora disponible: (mañana de 8 A 10)y(tarde despues de 18hs)
-                </label><br>
-                <input type="time" id="hora" name="hora" list="horarios-validos" required>
+
+                <label for="hora">Hora:</label>
+                    <select name="hora" id="hora">
+                        <optgroup label="Turno Mañana">
+                        <option value="09:00">9:00 AM</option>
+                        <option value="10:00">10:00 AM</option>
+                        </optgroup>
+                        <optgroup label="Turno Tarde">
+                            <option value="18:00">6:00 PM</option>
+                            <option value="19:00">7:00 PM</option>
+                            <option value="20:00">8:00 PM</option>
+                            <option value="21:00">9:00 PM</option>
+                        </optgroup>
+                    </select>
+                    <p><strong>Total estimado:</strong> <span id="total">$0</span></p>
+
 
            
                 <input type="submit" name="submit" value="Reservar Turno">
@@ -95,127 +108,76 @@
     <footer>
         <p>© 2025 BELENZA - Todos los derechos reservados</p>
     </footer>
-<script>
-document.querySelector("form").addEventListener("submit", (e) => {
+ <script>
+document.addEventListener('DOMContentLoaded', function () {
+  const servicioSelect = document.getElementById('servicio');
+  const extraSelect = document.getElementById('servicioExtra');
+  const totalSpan = document.getElementById('total');
+  const formulario = document.getElementById('reservaForm');
+
+  function calcularTotal() {
+    const servicioPrecio = parseInt(servicioSelect.selectedOptions[0].dataset.precio || 0);
+    const extraPrecio = parseInt(extraSelect.selectedOptions[0].dataset.precio || 0);
+    const total = servicioPrecio + extraPrecio;
+    totalSpan.textContent = `$${total.toLocaleString('es-AR')}`;
+    return total;
+  }
+
+  servicioSelect.addEventListener('change', calcularTotal);
+  extraSelect.addEventListener('change', calcularTotal);
+
+  formulario.addEventListener('submit', function (e) {
     e.preventDefault();
+    const totalFinal = calcularTotal();
 
-    const nombre = document.getElementById("nombre").value.trim();
-    const telefono = document.getElementById("telefono").value.trim();
-    const servicio = document.getElementById("servicio").value;
-    const servicioExtra = document.getElementById("servicioExtra").value;
-    const cantidadDiseno = parseInt(document.getElementById("cantidadDiseno").value);
-    const color = document.getElementById("color").value.trim();
-    const fechaStr = document.getElementById("fecha").value;
-    const horaStr = document.getElementById("hora").value;
+    const nombre = document.getElementById('nombre').value;
+    const telefono = document.getElementById('telefono').value;
+    const servicio = servicioSelect.value;
+    const extra = extraSelect.value || 'Sin extra';
+    const color = document.getElementById('color').value;
+    const fecha = document.getElementById('fecha').value;
+    const hora = document.getElementById('hora').value;
 
-    let errores = [];
+    const mensaje = `*¡Hola! Quiero confirmar mi turno*
 
-    if(nombre.length < 4){
-        errores.push("El nombre debe tener al menos 4 letras");
-    }
+Mis datos son:
 
-    if(!/^\d{10}$/.test(telefono)){
-        errores.push("El número debe tener 10 dígitos");
-    }
+📞 Teléfono: ${telefono}
+🙋‍♀️ Nombre: ${nombre}
+💅 Servicio: ${servicio} - $${parseInt(servicioSelect.selectedOptions[0].dataset.precio).toLocaleString('es-AR')}
+✨ Extra: ${extra} - $${parseInt(extraSelect.selectedOptions[0].dataset.precio).toLocaleString('es-AR')}
+🎨 Color: ${color || 'No especificado'}
+📆 Fecha: ${fecha}
+⏰ Hora: ${hora}
 
-    const hoy = new Date().toISOString().split("T")[0];
-    if(fechaStr < hoy){
-        errores.push("La fecha no puede ser anterior a hoy");
-    }
+💸 *Total: $${totalFinal.toLocaleString('es-AR')}*`;
 
-    if(!horaStr){
-        errores.push("Debe ingresar una hora válida");
-    }
+    const mensajeEncode = encodeURIComponent(mensaje);
+    window.open(`https://wa.me/3515223831?text=${mensajeEncode}`, '_blank');
 
-    const fecha = new Date(fechaStr);
-    const [hora, minutos] = horaStr.split(":").map(Number);
-    const dia = fecha.getDay();
-    const diaHabil = dia >= 1 && dia <= 5;
-    const turnoManana = hora >= 9 && hora < 11;
-    const turnoTarde = hora >= 18;
+    // Guardar turno para bloquearlo (opcional)
+    const clave = `${fecha}-${hora}`;
+    localStorage.setItem(clave, 'ocupado');
 
-    if(!diaHabil || (!turnoManana && !turnoTarde)){
-        errores.push("Solo se atiende de lunes a viernes entre 9 a 11hs o después de las 18hs");
-    }
+    document.getElementById('reservaForm').reset();
+    totalSpan.textContent = '$0';
+  });
 
-    if(servicio === "SeleccionServis"){
-        errores.push("Debe seleccionar un servicio");
-    }
+  // Bloquear horas ya reservadas
+  document.getElementById('fecha').addEventListener('change', function () {
+    const fecha = this.value;
+    const horaSelect = document.getElementById('hora');
+    const opciones = horaSelect.querySelectorAll('option');
 
-    if((servicioExtra === "diseño" || servicioExtra.includes("diseño")) && cantidadDiseno === 0){
-        errores.push("Debe indicar cuántas uñas con diseño");
-    }
-
-    if(errores.length > 0){
-        alert(errores.join("\n"));
-        return;
-    }
-
-    // Pedir alergia
-    const alergia = prompt("¿Sos alérgica a algún producto? Si no, poné 'no'");
-
-    // Precios base
-    const preciosServicios = {
-        kapping : 11500,
-        soft_gel : 14000,
-        semipermanente : 9000,
-        limpieza : 7000
-    };
-
-    const diseñoPorUña = 600;
-
-    let precioExtraBase = 0;
-    let descripcionExtra = "";
-
-    if (servicioExtra === "servis_con_diseño") {
-        precioExtraBase = 3000 + (cantidadDiseno * diseñoPorUña);
-        descripcionExtra = `Servis + diseño por ${cantidadDiseno} uña(s)`;
-    } else if (servicioExtra === "diseño") {
-        precioExtraBase = cantidadDiseno * diseñoPorUña;
-        descripcionExtra = `Diseño por ${cantidadDiseno} uña(s)`;
-    } else if (servicioExtra === "Servis") {
-        precioExtraBase = 3000;
-        descripcionExtra = "Servis";
-    } else {
-        descripcionExtra = "Ninguno";
-    }
-
-    const precioServicio = preciosServicios[servicio] || 0;
-    const total = precioServicio + precioExtraBase;
-    const fechaMostrar = fecha.toLocaleDateString('es-AR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-
-    // Crear mensaje para WhatsApp
-    const mensajeUsuario = 
-`*¡Hola! Quiero confirmar mi turno 💅✨*
-
-*Mis datos son:*
-
-🙋‍♀️ *Nombre:* ${nombre} 
-📱 *Teléfono:* ${telefono}   
-💅 *Servicio:* ${servicio} - $${precioServicio.toLocaleString()}  
-✨ *Servicio Extra:* ${descripcionExtra} - $${precioExtraBase.toLocaleString()}  
-🎨 *Color:* ${color || "No especificado"}  
-📆 *Fecha:* ${fechaMostrar}  
-🕒 *Hora:* ${horaStr}  
-⚠️ *Alergia:* ${alergia}  
-
-💵 *Total a abonar el día del turno:* $${total.toLocaleString()}  
-🔐 *Seña obligatoria para confirmar turno:* $2.000  
-
-*Datos para enviar la seña:*  
-🏦 Alias: *belenza.oficial*  
-📲 Enviame el comprobante por acá para dejar confirmado tu turno 🤍  
-
-¡Gracias por elegirnos! 💖`;
-
-    const mensajeCodificado = encodeURIComponent(mensajeUsuario);
-    const numeroBelenza = "543515223831";
-    const urlWhats = `https://wa.me/${numeroBelenza}?text=${mensajeCodificado}`;
-
-    window.open(urlWhats, "_blank");
+    opciones.forEach(op => {
+      const clave = `${fecha}-${op.value}`;
+      op.disabled = localStorage.getItem(clave) === 'ocupado';
+    });
+  });
 });
 </script>
 
+ 
 
 </body>
 </html>
