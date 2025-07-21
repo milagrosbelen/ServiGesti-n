@@ -187,6 +187,62 @@ footer {
 
 
 
+
+
+
+/* FORMULARIO */
+#formulario {
+  padding: 40px 20px;
+  background-color: #1c1c1c;
+  color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
+  max-width: 600px;
+  margin: auto;
+}
+
+#formulario h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #e88776;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+form label {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+form input,
+form select,
+form button {
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  font-size: 16px;
+  background-color: #f5f5f5;
+  color: #000;
+}
+
+form button {
+  background-color: #e88776;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: #ef9e8a;
+}
+
+
+
 /* ---------- Responsive ---------- */
 @media (max-width: 768px) {
   .servicio-card img {
@@ -213,5 +269,12 @@ footer {
 
   .servicio-card img {
     height: 160px;
+  }
+    #formulario {
+    padding: 20px 10px;
+  }
+
+  form {
+    width: 100%;
   }
 }

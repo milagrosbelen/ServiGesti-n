@@ -21,13 +21,13 @@
         <section id="formulario">
             <h2>Formulario de Turno</h2>
             <form action="/guardar-turno" method="post">
-                <label for="nombre">Nombre:</label><br> 
-                <input type="text" id="nombre" name="nombre" required minlength="3" ><br><br>
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required minlength="3" >
 
-                <label for="telefono">Numero de telefono:</label><br>
-                <input type="tel" id="telefono" name="telefono" required minlength="10" maxlength="10"><br><br>
+                <label for="telefono">Numero de telefono:</label>
+                <input type="tel" id="telefono" name="telefono" required minlength="10" maxlength="10">
 
-                <label for="servicio">Servicio:</label><br>
+                <label for="servicio">Servicio:</label>
                 <select id="servicio" name="servicio" >
                     <option value="SeleccionServis">Selecciona un servicio</option>
                     <option value="kapping">Kapping liso $12.000</option>
@@ -39,15 +39,15 @@
 
                     
                     
-                </select><br><br>
-                <label for="servicio">Servicios Extra:</label><br>
+                </select>
+                <label for="servicio">Servicios Extra:</label>
                 <select id="servicioExtra" name="servicioExtra" required>
                     <option value="Ninguno">Ninguno</option>
                     <option value="Servis">servis $3.800</option>
                     <option value="servis_con_diseño">Servis $3.800 + diseño por uña $1000</option>
                     <option value="diseño">Diseño por uña $1000</option>
                    
-                </select><br><br>
+                </select>
                   <label for="cantidadDiseno">Cantidad de uñas con diseño (solo si elegiste "Diseño por uña $600"):</label>
                 <select id="cantidadDiseno">
                     <option value="0" selected>0</option>
@@ -66,14 +66,13 @@
                 <label for="color">Color:</label>
                 <input type="text" id="color" placeholder="Ej: Rosa pastel" name="text"/>
 
-                <label for="fecha">Fecha:</label><br>
-                <input type="date" id="fecha" name="fecha" required ><br><br>
+                <label for="fecha">Fecha:</label>
+                <input type="date" id="fecha" name="fecha" required >
                 <small id="fecha-aviso" style="color:red;"></small>
 
                 <label for="hora">Hora disponible: (mañana de 8 A 10)y(tarde despues de 18hs)
                 </label><br>
-                <input type="time" id="hora" name="hora" list="horarios-validos" required><br><br>
-
+                <input type="time" id="hora" name="hora" list="horarios-validos" required>
 
            
                 <input type="submit" name="submit" value="Reservar Turno">
