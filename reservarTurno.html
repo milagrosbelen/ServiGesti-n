@@ -20,7 +20,7 @@
     <div class="grid_container">
         <section id="formulario">
             <h2>Formulario de Turno</h2>
-            <form action="#" method="post">
+            <form action="/guardar-turno" method="post">
                 <label for="nombre">Nombre:</label><br> 
                 <input type="text" id="nombre" name="nombre" required minlength="3" ><br><br>
 
@@ -30,10 +30,12 @@
                 <label for="servicio">Servicio:</label><br>
                 <select id="servicio" name="servicio" >
                     <option value="SeleccionServis">Selecciona un servicio</option>
-                    <option value="kapping">Kapping $11.500</option>
-                    <option value="soft_gel">Soft Gel $14.000</option>
+                    <option value="kapping">Kapping liso $12.000</option>
+                    <option value="kapping">Kapping con diseño  $13.500</option>
+                    <option value="soft_gel">Soft Gel liso $15.000</option>
+                    <option value="soft_gel">Soft Gel con diseño $16.500</option>
                     <option value="semipermanente">Semipermanente $9.000</option>
-                    <option value="limpieza">Limpieza $7.000</option>
+                    <option value="limpieza">Limpieza $7.700</option>
 
                     
                     
@@ -41,9 +43,9 @@
                 <label for="servicio">Servicios Extra:</label><br>
                 <select id="servicioExtra" name="servicioExtra" required>
                     <option value="Ninguno">Ninguno</option>
-                    <option value="Servis"> $3.000</option>
-                    <option value="servis_con_diseño">Servis $3.000 + diseño por uña $600</option>
-                    <option value="diseño">Diseño por uña $600</option>
+                    <option value="Servis">servis $3.800</option>
+                    <option value="servis_con_diseño">Servis $3.800 + diseño por uña $1000</option>
+                    <option value="diseño">Diseño por uña $1000</option>
                    
                 </select><br><br>
                   <label for="cantidadDiseno">Cantidad de uñas con diseño (solo si elegiste "Diseño por uña $600"):</label>
@@ -62,7 +64,7 @@
                 </select>
 
                 <label for="color">Color:</label>
-                <input type="text" id="color" placeholder="Ej: Rosa pastel" />
+                <input type="text" id="color" placeholder="Ej: Rosa pastel" name="text"/>
 
                 <label for="fecha">Fecha:</label><br>
                 <input type="date" id="fecha" name="fecha" required ><br><br>
@@ -74,7 +76,7 @@
 
 
            
-                <input type="submit" value="Reservar Turno">
+                <input type="submit" name="submit" value="Reservar Turno">
             </form>
             <p><strong>Seña obligatoria:</strong> $2.000</p>
             <p><em>La seña no es reembolsable. Se puede cancelar con 24 hs de anticipación.</em></p>
@@ -92,12 +94,8 @@
     <footer>
         <p>© 2025 BELENZA - Todos los derechos reservados</p>
     </footer>
-
-    <script>
-        
-//Captura el evento "submit" del formulario 
-document.querySelector("form").addEventListener("submit", function (e){
-
+<script>
+document.querySelector("form").addEventListener("submit", (e) => {
     e.preventDefault();
 
     const nombre = document.getElementById("nombre").value.trim();
@@ -132,10 +130,10 @@ document.querySelector("form").addEventListener("submit", function (e){
     const [hora, minutos] = horaStr.split(":").map(Number);
     const dia = fecha.getDay();
     const diaHabil = dia >= 1 && dia <= 5;
-    const turnoMañana = hora >= 9 && hora < 11;
+    const turnoManana = hora >= 9 && hora < 11;
     const turnoTarde = hora >= 18;
 
-    if(!diaHabil || (!turnoMañana && !turnoTarde)){
+    if(!diaHabil || (!turnoManana && !turnoTarde)){
         errores.push("Solo se atiende de lunes a viernes entre 9 a 11hs o después de las 18hs");
     }
 
@@ -152,6 +150,10 @@ document.querySelector("form").addEventListener("submit", function (e){
         return;
     }
 
+    // Pedir alergia
+    const alergia = prompt("¿Sos alérgica a algún producto? Si no, poné 'no'");
+
+    // Precios base
     const preciosServicios = {
         kapping : 11500,
         soft_gel : 14000,
@@ -164,26 +166,24 @@ document.querySelector("form").addEventListener("submit", function (e){
     let precioExtraBase = 0;
     let descripcionExtra = "";
 
-
     if (servicioExtra === "servis_con_diseño") {
         precioExtraBase = 3000 + (cantidadDiseno * diseñoPorUña);
         descripcionExtra = `Servis + diseño por ${cantidadDiseno} uña(s)`;
-    } else if (servicioExtra === "solo_diseño") {
+    } else if (servicioExtra === "diseño") {
         precioExtraBase = cantidadDiseno * diseñoPorUña;
         descripcionExtra = `Diseño por ${cantidadDiseno} uña(s)`;
-    } else if (servicioExtra === "solo_servis") {
+    } else if (servicioExtra === "Servis") {
         precioExtraBase = 3000;
         descripcionExtra = "Servis";
     } else {
         descripcionExtra = "Ninguno";
     }
 
-
-
     const precioServicio = preciosServicios[servicio] || 0;
     const total = precioServicio + precioExtraBase;
     const fechaMostrar = fecha.toLocaleDateString('es-AR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
+    // Crear mensaje para WhatsApp
     const mensajeUsuario = 
 `*¡Hola! Quiero confirmar mi turno 💅✨*
 
@@ -196,6 +196,7 @@ document.querySelector("form").addEventListener("submit", function (e){
 🎨 *Color:* ${color || "No especificado"}  
 📆 *Fecha:* ${fechaMostrar}  
 🕒 *Hora:* ${horaStr}  
+⚠️ *Alergia:* ${alergia}  
 
 💵 *Total a abonar el día del turno:* $${total.toLocaleString()}  
 🔐 *Seña obligatoria para confirmar turno:* $2.000  
@@ -206,28 +207,14 @@ document.querySelector("form").addEventListener("submit", function (e){
 
 ¡Gracias por elegirnos! 💖`;
 
-    const nuevoTurno = {
-        nombre,
-        telefono,
-        servicio,
-        servicioExtra,
-        color,
-        fecha: fechaStr,
-        hora: horaStr,
-        total,
-        alergia: prompt("¿Sos alérgica a algún producto? Si no, poné 'no'")
-    };
-
-    const turnosGuardados = JSON.parse(localStorage.getItem("turnosBelenza")) || [];
-    turnosGuardados.push(nuevoTurno);
-    localStorage.setItem("turnosBelenza", JSON.stringify(turnosGuardados));
-
     const mensajeCodificado = encodeURIComponent(mensajeUsuario);
     const numeroBelenza = "543515223831";
-    const Url = `https://wa.me/${numeroBelenza}?text=${mensajeCodificado}`;
+    const urlWhats = `https://wa.me/${numeroBelenza}?text=${mensajeCodificado}`;
 
-    window.open(Url, "_blank");
+    window.open(urlWhats, "_blank");
 });
-    </script>
+</script>
+
+
 </body>
 </html>
