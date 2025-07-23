@@ -1,3 +1,13 @@
+:root {
+  --color-blanco: #ffffff;
+  --color-negro: #000000;
+  --color-coral: #ff6f61;
+  --color-turquesa: #a0e7e5;
+  --color-rosa-empolvado: #f2c6c2;
+  --color-beige: #f5f5dc;
+  --color-gris-muy-claro: #f2f2f2;
+}
+
 /* Reset general */
 * {
   box-sizing: border-box;
@@ -6,49 +16,48 @@
 }
 
 body {
-  font-family: sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   line-height: 1.6;
-     background-color: #000000;
-    color: #f5f5f5;
-    font-family: 'Segoe UI', sans-serif;
-    padding: 20px;
+  background-color: var(--color-blanco);
+  color: var(--color-negro);
+  padding: 20px;
 }
 
 /* HEADER */
 header {
-    background-color: #111;
-    padding: 30px 20px;
-    text-align: center;
-    border-radius: 12px;
-    margin-bottom: 30px;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+  background-color: var(--color-beige);
+  padding: 30px 20px;
+  text-align: center;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 }
 
-nav   {
+nav {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 15px;
 }
+
 nav a {
-    color: #ffffff;
-    margin: 0 12px;
-    font-weight: bold;
-    text-decoration: none;
-    transition: color 0.3s;
+  color: var(--color-negro);
+  margin: 0 12px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s;
 }
 
 nav a:hover {
-    color: #e88776;
+  color: var(--color-coral);
 }
 
 .logo-neon {
-    filter: drop-shadow(0 0 5px #e88776)
-            drop-shadow(0 0 10px #e88776)
-            drop-shadow(0 0 20px #e88776);
+  filter: drop-shadow(0 0 5px var(--color-coral))
+          drop-shadow(0 0 10px var(--color-coral))
+          drop-shadow(0 0 20px var(--color-coral));
 }
-
 
 .grid_container {
   padding: 20px;
@@ -56,147 +65,133 @@ nav a:hover {
   margin: auto;
 }
 
-
 /* SECCIONES */
 section {
-    background-color: #1a1a1a;
-    color: #f0f0f0;
-    padding: 50px 30px;
-    border-top: 5px solid #e88776;
-    border-bottom: 2px solid #e88776;
-    border-radius: 12px;
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.05);
-    margin-bottom: 50px;
+  background-color: var(--color-gris-muy-claro);
+  color: var(--color-negro);
+  padding: 50px 30px;
+  border-top: 5px solid var(--color-coral);
+  border-bottom: 2px solid var(--color-coral);
+  border-radius: 12px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+  margin-bottom: 50px;
 }
 
 section h2 {
-    color: #e88776;
+  color: var(--color-coral);
 }
 
-
-
-/* ---------- SERVICIOS ---------- */
-
+/* SERVICIOS */
 #servicios h2 {
   text-align: center;
   font-size: 28px;
   margin-bottom: 30px;
-  color: #fdfdfd;
 }
 
-/* GRID de tarjetas de servicios */
 .servicios-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
 }
 
-/* Tarjeta individual */
 .servicio-card {
-  background-color: #1a1a1a;
+  background-color: var(--color-beige);
   border-radius: 12px;
   padding: 10px;
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .servicio-card:hover {
   transform: scale(1.03);
-  box-shadow: 0 6px 16px #e88776;
+  box-shadow: 0 6px 16px var(--color-rosa-empolvado);
 }
 
-/* Imagen del servicio */
 .servicio-card img {
   width: 100%;
   height: 220px;
   object-fit: contain;
   border-radius: 8px;
-  background-color: #0e0e0e;
+  background-color: var(--color-gris-muy-claro);
 }
 
-/* Título */
 .servicio-card h3 {
   margin-top: 12px;
   font-size: 18px;
-  color: #e0e0e0;
+  color: var(--color-negro);
 }
 
 /* BOTONES Y LINKS */
 a, input[type="submit"], input[type="button"], .sidebar button {
-    background-color: #e88776;
-    color: #000;
-    padding: 8px 14px;
-    font-size: 12px;
-    border: none;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+  background-color: var(--color-rosa-empolvado);
+  color: var(--color-negro);
+  padding: 8px 14px;
+  font-size: 12px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 a:hover, input[type="submit"]:hover, input[type="button"]:hover, .sidebar button:hover {
-    background-color: #efa496;
-      transform: scale(1.03);
+  background-color: var(--color-turquesa);
+  transform: scale(1.03);
 }
 
 /* MODAL */
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.7);
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .modal-content {
-    background-color: #1f1f1f;
-    color: #f0f0f0;
-    margin: 10% auto;
-    padding: 20px;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 500px;
-    position: relative;
-    box-shadow: 0 0 15px #e88776;
-    animation: fadeIn 0.3s ease-in-out;
+  background-color: var(--color-gris-muy-claro);
+  color: var(--color-negro);
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  box-shadow: 0 0 15px var(--color-coral);
+  animation: fadeIn 0.3s ease-in-out;
 }
 
 .close {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    font-size: 28px;
-    cursor: pointer;
-    color: #f0f0f0;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--color-negro);
 }
 
 /* FOOTER */
 footer {
-    background-color: #111;
-    text-align: center;
-    padding: 20px;
-    border-radius: 10px;
-    color: #ccc;
-    font-size: 0.9rem;
+  background-color: var(--color-beige);
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+  color: var(--color-negro);
+  font-size: 0.9rem;
 }
-
-
-
-
-
 
 /* FORMULARIO */
 #formulario {
   padding: 40px 20px;
-  background-color: #1c1c1c;
-  color: #fff;
+  background-color: var(--color-gris-muy-claro);
+  color: var(--color-negro);
   border-radius: 12px;
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
   max-width: 600px;
   margin: auto;
 }
@@ -204,7 +199,7 @@ footer {
 #formulario h2 {
   text-align: center;
   margin-bottom: 20px;
-  color: #e88776;
+  color: var(--color-coral);
 }
 
 form {
@@ -225,20 +220,20 @@ form button {
   border-radius: 6px;
   border: none;
   font-size: 16px;
-  background-color: #f5f5f5;
-  color: #000;
+  background-color: var(--color-blanco);
+  color: var(--color-negro);
 }
 
 form button {
-  background-color: #e88776;
-  color: #000;
+  background-color: var(--color-coral);
+  color: var(--color-blanco);
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 form button:hover {
-  background-color: #ef9e8a;
+  background-color: var(--color-turquesa);
 }
 
 select {
@@ -247,30 +242,27 @@ select {
   border-radius: 8px;
   border: 1px solid #ccc;
   font-size: 16px;
-  background-color: #fefefe;
-  color: #333;
+  background-color: var(--color-blanco);
+  color: var(--color-negro);
   margin-bottom: 20px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   transition: all 0.3s ease;
 }
 
 select:focus {
-  border-color: #b87fd0;
+  border-color: var(--color-turquesa);
   outline: none;
-  box-shadow: 0 0 5px rgba(184, 127, 208, 0.5);
+  box-shadow: 0 0 5px rgba(160, 231, 229, 0.5);
 }
 
-
-
-
+/* Aclaración */
 .aclaracion-servicios {
   text-align: center;
   font-size: 1rem;
   margin-bottom: 20px;
-  color: #888; /* podés cambiar el color según tu estética */
+  color: #666;
   font-style: italic;
 }
-
 
 /* ---------- Responsive ---------- */
 @media (max-width: 768px) {
@@ -299,19 +291,17 @@ select:focus {
   .servicio-card img {
     height: 160px;
   }
-    #formulario {
+
+  #formulario {
     padding: 20px 10px;
   }
 
-  form {
-    width: 100%;
-  
-    nav {
+  nav {
     flex-wrap: nowrap;
-    overflow-x: auto; /* Para que pueda hacer scroll horizontal si no entran */
+    overflow-x: auto;
   }
 
   nav a {
-    white-space: nowrap; /* Para evitar que el texto de los links se parta */
-  }}
+    white-space: nowrap;
+  }
 }

@@ -31,12 +31,17 @@
 
                 <label for="servicio">Servicio:</label>
                 <select id="servicio" name="servicio" >
-                    <option value="SeleccionServis" data-precio="12000" >Selecciona un servicio</option>
-                    <option value="kapping" data-precio="12000" >Kapping liso $12.000</option>
-                    <option value="kapping" data-precio="13500" >Kapping con diseño  $13.500</option>
-                    <option value="soft_gel" data-precio="15000">Soft Gel liso $15.000</option>
-                    <option value="soft_gel" data-precio="16500" >Soft Gel con diseño $16.500</option>
-                    <option value="semipermanente" data-precio="9000" >Semipermanente $9.000</option>
+                    <option value="SeleccionServis" >Selecciona un servicio</option>
+                    <option value="kapping" data-precio="12000" >Kapping liso uñas cortas $12.000</option>
+                    <option value="kapping" data-precio="13900" >Kapping liso uñas largas $13.900</option>
+                    <option value="kapping" data-precio="13900" >Kapping con diseño uñas cortas $13.900</option>
+                    <option value="kapping" data-precio="15000" >Kapping con diseño uñas largas $15.000</option>
+                    <option value="soft_gel" data-precio="15500">Soft Gel liso uñas cortas $15.500</option>
+                    <option value="soft_gel" data-precio="16500">Soft Gel liso uñas largas $16.500</option>
+                    <option value="soft_gel" data-precio="16900" >Soft Gel con diseño uñas cortas$16.900</option>
+                    <option value="soft_gel" data-precio="17900" >Soft Gel con diseño uñas largas $17.900</option>
+                    <option value="semipermanente" data-precio="14900" >Kapping + Soft gel $14.900</option>
+                    <option value="semipermanente" data-precio="9400" >Semipermanente $9.400</option>
                     <option value="limpieza" data-precio="7700" >Limpieza $7.700</option>
 
                     
@@ -46,27 +51,9 @@
                 <select id="servicioExtra" name="servicioExtra" required>
                     <option value="Ninguno">Ninguno</option>
                     <option value="Servis" data-precio="3800" >servis $3.800</option>
-                    <option value="servis_con_diseño" data-precio="3800" data-precio="1000" >Servis $3.800 + diseño por uña $1000</option>
-                    <option value="diseño" data-precio="1000" >Diseño por uña $1000</option>
-                   
-                </select>
-                  <label for="cantidadDiseno">Cantidad de uñas con diseño (solo si elegiste "Diseño por uña $1000"):</label>
-                <select id="cantidadDiseno">
-                    <option value="0" selected>0</option>
-                    <option value="1">1 uña</option>
-                    <option value="2">2 uñas</option>
-                    <option value="3">3 uñas</option>
-                    <option value="4">4 uñas</option>
-                    <option value="5">5 uñas</option>
-                    <option value="6">6 uñas</option>
-                    <option value="7">7 uñas</option>
-                    <option value="8">8 uñas</option>
-                    <option value="9">9 uñas</option>
-                    <option value="10">10 uñas</option>
                 </select>
 
-                <label for="color">Color:</label>
-                <input type="text" id="color" placeholder="Ej: Rosa pastel" name="text"/>
+
 
                 <label for="fecha">Fecha:</label>
                 <input type="date" id="fecha" name="fecha" required >
@@ -108,76 +95,6 @@
     <footer>
         <p>© 2025 BELENZA - Todos los derechos reservados</p>
     </footer>
- <script>
-document.addEventListener('DOMContentLoaded', function () {
-  const servicioSelect = document.getElementById('servicio');
-  const extraSelect = document.getElementById('servicioExtra');
-  const totalSpan = document.getElementById('total');
-  const formulario = document.getElementById('reservaForm');
-
-  function calcularTotal() {
-    const servicioPrecio = parseInt(servicioSelect.selectedOptions[0].dataset.precio || 0);
-    const extraPrecio = parseInt(extraSelect.selectedOptions[0].dataset.precio || 0);
-    const total = servicioPrecio + extraPrecio;
-    totalSpan.textContent = `$${total.toLocaleString('es-AR')}`;
-    return total;
-  }
-
-  servicioSelect.addEventListener('change', calcularTotal);
-  extraSelect.addEventListener('change', calcularTotal);
-
-  formulario.addEventListener('submit', function (e) {
-    e.preventDefault();
-    const totalFinal = calcularTotal();
-
-    const nombre = document.getElementById('nombre').value;
-    const telefono = document.getElementById('telefono').value;
-    const servicio = servicioSelect.value;
-    const extra = extraSelect.value || 'Sin extra';
-    const color = document.getElementById('color').value;
-    const fecha = document.getElementById('fecha').value;
-    const hora = document.getElementById('hora').value;
-
-    const mensaje = `*¡Hola! Quiero confirmar mi turno*
-
-Mis datos son:
-
-📞 Teléfono: ${telefono}
-🙋‍♀️ Nombre: ${nombre}
-💅 Servicio: ${servicio} - $${parseInt(servicioSelect.selectedOptions[0].dataset.precio).toLocaleString('es-AR')}
-✨ Extra: ${extra} - $${parseInt(extraSelect.selectedOptions[0].dataset.precio).toLocaleString('es-AR')}
-🎨 Color: ${color || 'No especificado'}
-📆 Fecha: ${fecha}
-⏰ Hora: ${hora}
-
-💸 *Total: $${totalFinal.toLocaleString('es-AR')}*`;
-
-    const mensajeEncode = encodeURIComponent(mensaje);
-    window.open(`https://wa.me/3515223831?text=${mensajeEncode}`, '_blank');
-
-    // Guardar turno para bloquearlo (opcional)
-    const clave = `${fecha}-${hora}`;
-    localStorage.setItem(clave, 'ocupado');
-
-    document.getElementById('reservaForm').reset();
-    totalSpan.textContent = '$0';
-  });
-
-  // Bloquear horas ya reservadas
-  document.getElementById('fecha').addEventListener('change', function () {
-    const fecha = this.value;
-    const horaSelect = document.getElementById('hora');
-    const opciones = horaSelect.querySelectorAll('option');
-
-    opciones.forEach(op => {
-      const clave = `${fecha}-${op.value}`;
-      op.disabled = localStorage.getItem(clave) === 'ocupado';
-    });
-  });
-});
-</script>
-
- 
-
+ <script src="reservarTurno.js"></script>
 </body>
 </html>
